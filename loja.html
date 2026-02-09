@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Perfil da Loja - Shopping Atibaia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --whatsapp: #25d366;
+            --dark-bg: #1a2634;
+            --card-bg: #243447;
+            --text-light: #ecf0f1;
+            --facebook: #1877F2;
+            --instagram: #E4405F;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--text-light); padding-bottom: 60px; }
+
+        /* --- CAPA E BOTÃO VOLTAR --- */
+        .loja-capa {
+            width: 100%; height: 180px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), var(--dark-bg)), 
+                        url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800') center/cover;
+            position: relative;
+        }
+
+        .btn-voltar-fixo {
+            position: absolute; top: 20px; left: 20px;
+            width: 40px; height: 40px; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; font-size: 1.5rem; z-index: 10;
+        }
+
+        /* --- INFO LOJA --- */
+        .loja-header { padding: 0 20px; text-align: center; margin-top: -50px; }
+        .loja-logo { 
+            width: 100px; height: 100px; border-radius: 30px; 
+            border: 5px solid var(--dark-bg); background: #fff;
+            object-fit: cover; margin-bottom: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .loja-header h1 { margin: 0; font-size: 1.4rem; font-weight: 900; letter-spacing: -0.5px; }
+        .info-tags { margin-top: 8px; display: flex; justify-content: center; gap: 10px; font-size: 0.7rem; font-weight: 700; opacity: 0.7; }
+
+        /* --- REDES SOCIAIS & CONTATO --- */
+        .redes-container {
+            display: flex; justify-content: center; gap: 12px;
+            margin: 20px 0;
+        }
+        .btn-social {
+            width: 45px; height: 45px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; font-size: 1.2rem;
+            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- BOTÃO WHATSAPP (O PRINCIPAL) --- */
+        .cta-container { padding: 0 20px; margin-bottom: 30px; }
+        .btn-whats-main {
+            background: var(--whatsapp); color: white;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 18px; border-radius: 18px; text-decoration: none;
+            font-weight: 900; font-size: 0.9rem;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
+        }
+
+        /* --- PRODUTOS --- */
+        .section-titulo { 
+            padding: 20px; font-weight: 900; font-size: 0.8rem; 
+            text-transform: uppercase; letter-spacing: 2px; color: var(--primary); 
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-titulo::after { content: ""; height: 1px; background: rgba(255,255,255,0.1); flex: 1; }
+        
+        .grid-produtos {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px;
+        }
+
+        .card-produto {
+            background: var(--card-bg); border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .produto-img { width: 100%; height: 120px; object-fit: cover; }
+        .produto-info { padding: 12px; }
+        .produto-nome { font-size: 0.75rem; font-weight: 700; margin-bottom: 5px; display: block; height: 35px; overflow: hidden; }
+        .produto-preco { color: var(--primary); font-weight: 900; font-size: 1rem; }
+
+    </style>
+</head>
+<body>
+
+    <div class="loja-capa">
+        <a href="index.html" class="btn-voltar-fixo">‹</a>
+    </div>
+
+    <div class="loja-header">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200" class="loja-logo">
+        <h1>Pizzaria Lucas Atibaia</h1>
+        <div class="info-tags">
+            <span>📍 Centro</span>
+            <span>•</span>
+            <span>🕒 Aberto agora</span>
+        </div>
+    </div>
+
+    <div class="redes-container">
+        <a href="#" class="btn-social">📘</a> <a href="#" class="btn-social">📸</a> <a href="#" class="btn-social">🎬</a> <a href="#" class="btn-social" style="color: #3498db;">📍</a> </div>
+
+    <div class="cta-container">
+        <a href="https://wa.me/5511999999999" class="btn-whats-main">
+            FAZER PEDIDO AGORA
+        </a>
+    </div>
+
+    <div class="section-titulo">Cardápio de Ofertas</div>
+
+    <div class="grid-produtos">
+        <div class="card-produto" onclick="location.href='#'">
+            <img src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?w=300" class="produto-img">
+            <div class="produto-info">
+                <span class="produto-nome">Pizza Margherita G</span>
+                <span class="produto-preco">R$ 54,90</span>
+            </div>
+        </div>
+        <div class="card-produto" onclick="location.href='#'">
+            <img src="https://images.unsplash.com/photo-1593504049359-74330189a355?w=300" class="produto-img">
+            <div class="produto-info">
+                <span class="produto-nome">Pizza Pepperoni Especial</span>
+                <span class="produto-preco">R$ 62,00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const lojaId = params.get('id');
+        // Aqui você faria a lógica para carregar os dados reais da loja no futuro
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shopping Virtual Atibaia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --dark-bg: #1a2634;
+            --card-bg: #243447;
+            --text-light: #ecf0f1;
+            --cor-comida: #ff9f43;
+            --cor-moda: #48dbfb;
+            --cor-servicos: #1dd1a1;
+            --cor-beleza: #ff9ff3;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            margin: 0; font-family: 'Montserrat', sans-serif; 
+            background: var(--dark-bg); color: var(--text-light); 
+            padding-bottom: 140px; 
+            overflow-x: hidden; 
+        }
+
+        header { 
+            padding: 20px; background: rgba(26, 38, 52, 0.95);
+            backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo-area h1 { margin: 0; font-size: 1rem; font-weight: 900; }
+        .logo-area h1 span { color: var(--primary); }
+
+        .btn-sua-loja {
+            background: var(--primary); color: #fff; text-decoration: none;
+            font-size: 0.65rem; font-weight: 900; padding: 8px 15px;
+            border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* --- ESTILO DO AVISO DE INSTALAÇÃO (PWA) --- */
+        #pwa-modal {
+            position: fixed; bottom: 110px; left: 20px; right: 20px;
+            background: var(--card-bg); padding: 20px; border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            z-index: 2000; border: 1px solid var(--primary);
+            display: none; /* Começa escondido */
+            animation: slideUp 0.5s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .pwa-content h3 { margin: 0 0 5px 0; font-size: 0.9rem; color: var(--primary); }
+        .pwa-content p { margin: 0 0 15px 0; font-size: 0.7rem; opacity: 0.8; line-height: 1.4; }
+        .pwa-actions { display: flex; gap: 10px; }
+        .btn-pwa {
+            flex: 1; padding: 12px; border: none; border-radius: 12px;
+            font-family: 'Montserrat'; font-weight: 900; font-size: 0.65rem; cursor: pointer;
+        }
+        .btn-instalar { background: var(--primary); color: white; }
+        .btn-notificar { background: white; color: var(--dark-bg); }
+
+        /* --- CATEGORIAS --- */
+        .categorias-area { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
+        .btn-categoria { text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; }
+        .cat-icon {
+            width: 50px; height: 50px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; margin-bottom: 8px;
+        }
+        .btn-categoria span { font-size: 0.6rem; font-weight: 900; }
+
+        /* --- DESTAQUES --- */
+        .section-label { padding: 0 20px; font-weight: 700; font-size: 0.75rem; margin-top: 25px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.3); }
+
+        .viewport-destaques { width: 100%; overflow: hidden; margin-top: 15px; }
+        .destaques-track {
+            display: flex; width: fit-content; 
+            animation: rotateCarousel 20s linear infinite;
+            gap: 15px; padding: 0 20px;
+        }
+        .destaque-card {
+            flex: 0 0 240px; height: 140px; border-radius: 20px;
+            background-size: cover; background-position: center; position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- NAV BAR --- */
+        .nav-bottom {
+            position: fixed; bottom: 40px; left: 0; width: 100%;
+            background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-around; padding: 10px 0;
+            z-index: 1001;
+        }
+        .nav-item { text-decoration: none; color: #8899a6; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; font-weight: 700; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; font-style: normal; }
+
+        /* --- TICKER --- */
+        .ticker-cidade {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #000; color: var(--primary); padding: 10px 0;
+            overflow: hidden; white-space: nowrap; z-index: 1002;
+            border-top: 1px solid var(--primary);
+        }
+        .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.8rem; font-weight: 900; }
+
+        @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+        @keyframes rotateCarousel { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area"><h1>SHOPPING <span>ATIBAIA</span></h1></div>
+        <a href="painel.html" class="btn-sua-loja">Sua Loja</a>
+    </header>
+
+    <div id="pwa-modal">
+        <div class="pwa-content">
+            <h3>Fique por dentro! 🚀</h3>
+            <p>Receba ofertas exclusivas de Atibaia e instale nosso App para acesso rápido.</p>
+        </div>
+        <div class="pwa-actions">
+            <button class="btn-pwa btn-notificar" onclick="fecharModal()">🔔 NOTIFICAR</button>
+            <button class="btn-pwa btn-instalar" onclick="fecharModal()">📲 INSTALAR APP</button>
+        </div>
+    </div>
+
+    <div class="categorias-area">
+        <a href="#" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-comida)">🍕</div><span>COMIDA</span></a>
+        <a href="#" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-moda)">👜</div><span>MODA</span></a>
+        <a href="#" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-servicos)">🛠️</div><span>SERVIÇOS</span></a>
+        <a href="#" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-beleza)">💄</div><span>BELEZA</span></a>
+    </div>
+
+    <div class="section-label">DESTAQUES DA SEMANA</div>
+    <div class="viewport-destaques">
+        <div class="destaques-track">
+            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');"></div>
+            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');"></div>
+            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');"></div>
+            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');"></div>
+        </div>
+    </div>
+
+    <div class="nav-bottom">
+        <a href="index.html" class="nav-item active"><i>🏠</i>INÍCIO</a>
+        <a href="reels.html" class="nav-item"><i>🎬</i>REELS</a>
+        <a href="#" class="nav-item"><i>❤️</i>FAVORITOS</a>
+    </div>
+
+    <div class="ticker-cidade">
+        <div class="ticker-track">
+            🍓 MORANGO DIRETO DO PRODUTOR DE ATIBAIA • 🎡 VISITE O TELEFÉRICO • 🏬 ANUNCIE SUA LOJA AQUI •
+        </div>
+    </div>
+
+    <script>
+        // Mostrar o modal após 2 segundos
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('pwa-modal').style.display = 'block';
+            }, 2000);
+        };
+
+        function fecharModal() {
+            document.getElementById('pwa-modal').style.display = 'none';
+            // Aqui você dispararia a lógica real de Push Notification ou Prompt de Instalação
+            console.log("Ação PWA executada.");
+        }
+    </script>
+
+</body>
+</html>

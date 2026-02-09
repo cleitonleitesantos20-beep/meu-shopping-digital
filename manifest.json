@@ -1,0 +1,15 @@
+{
+  "name": "Shopping Virtual Atibaia",
+  "short_name": "Atibaia Shop",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1a2634",
+  "theme_color": "#2ecc71",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2331/2331970.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reels Atibaia - Ofertas em Vídeo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --text-light: #ecf0f1;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body, html { 
+            margin: 0; padding: 0; 
+            width: 100%; height: 100%; 
+            background: #000; 
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+        }
+
+        /* Container de scroll vertical travado (Snap) */
+        .reels-container {
+            width: 100%; height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+        .reels-container::-webkit-scrollbar { display: none; }
+
+        .video-slide {
+            width: 100%; height: 100vh;
+            scroll-snap-align: start;
+            position: relative;
+            background: #111;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .video-placeholder {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- INFO SOBRE O VÍDEO --- */
+        .overlay-info {
+            position: absolute; bottom: 100px; left: 20px;
+            color: white; z-index: 10;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .loja-nome { 
+            font-weight: 900; font-size: 1.1rem; 
+            margin-bottom: 8px; display: flex; 
+            align-items: center; gap: 10px; 
+        }
+        .loja-nome img { 
+            width: 35px; height: 35px; 
+            border-radius: 50%; border: 2px solid var(--primary); 
+        }
+        .video-desc { font-size: 0.85rem; opacity: 0.9; max-width: 280px; line-height: 1.4; }
+
+        /* Botão de Voltar */
+        .btn-voltar {
+            position: absolute; top: 20px; left: 20px;
+            z-index: 20; color: white; text-decoration: none; 
+            font-size: 1.8rem; font-weight: bold;
+        }
+
+        /* --- NAV BAR FIXA (SEM BOTÃO DE COMERCIANTE) --- */
+        .nav-bottom {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px);
+            display: flex; justify-content: space-around; padding: 15px 0;
+            z-index: 100; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .nav-item { 
+            text-decoration: none; color: #8899a6; 
+            display: flex; flex-direction: column; 
+            align-items: center; font-size: 0.7rem; font-weight: 700; 
+        }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; font-style: normal; }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="btn-voltar">‹</a>
+
+    <div class="reels-container">
+        
+        <div class="video-slide">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800" class="video-placeholder">
+            <div class="overlay-info">
+                <div class="loja-nome">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=50">
+                    Pizzaria Lucas
+                </div>
+                <p class="video-desc">Nossa promoção de Terça-feira! Pizza de Mussarela por R$ 39,90 🍕✨</p>
+            </div>
+        </div>
+
+        <div class="video-slide">
+            <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800" class="video-placeholder">
+            <div class="overlay-info">
+                <div class="loja-nome">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=50">
+                    Burger da Montanha
+                </div>
+                <p class="video-desc">O artesanal mais suculento de Atibaia. Vem provar! 🍔🔥</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-bottom">
+        <a href="index.html" class="nav-item"><i>🏠</i>INÍCIO</a>
+        <a href="reels.html" class="nav-item active"><i>🎬</i>REELS</a>
+        <a href="#" class="nav-item"><i>❤️</i>FAVORITOS</a>
+    </div>
+
+</body>
+</html>

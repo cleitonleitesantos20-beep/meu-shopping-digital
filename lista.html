@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lojas - Shopping Atibaia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --dark-bg: #1a2634;
+            --card-bg: #243447;
+            --text-light: #ecf0f1;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            background: var(--dark-bg); 
+            color: var(--text-light); 
+            padding-bottom: 20px;
+        }
+
+        /* --- HEADER DA LISTA --- */
+        header { 
+            padding: 20px; 
+            background: rgba(26, 38, 52, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .btn-voltar {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+
+        .btn-voltar:active { transform: scale(0.9); background: var(--primary); }
+
+        #categoria-titulo { 
+            margin: 0; font-size: 1.1rem; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 2px;
+            color: var(--primary);
+        }
+
+        /* --- LISTAGEM DE LOJAS --- */
+        .lista-container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card-loja {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(255,255,255,0.03);
+            animation: slideUp 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        .card-loja:active { transform: scale(0.97); filter: brightness(1.1); }
+
+        .img-loja {
+            width: 80px; height: 80px;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .info-loja h3 { margin: 0; font-size: 1rem; font-weight: 800; }
+        .info-loja p { margin: 5px 0; font-size: 0.75rem; color: #8899a6; line-height: 1.3; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary);
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 900;
+        }
+
+        /* --- ANIMAÇÕES --- */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="btn-voltar">‹</a>
+        <h2 id="categoria-titulo">Carregando...</h2>
+        <div style="width: 45px;"></div> </header>
+
+    <div class="lista-container" id="lista-lojas">
+        </div>
+
+    <script>
+        // 1. Pega o nome da categoria na URL (ex: ?cat=comida)
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('cat');
+        const titulo = document.getElementById('categoria-titulo');
+        const container = document.getElementById('lista-lojas');
+
+        // 2. Define o título da página baseado na categoria
+        if(cat) titulo.innerText = cat.replace('-', ' ');
+
+        // 3. Simulação de Banco de Dados de Lojas de Atibaia
+        const todasLojas = [
+            { id: 1, nome: "Pizzaria Lucas Atibaia", cat: "comida", desc: "A melhor massa artesanal da região.", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200" },
+            { id: 2, nome: "Burguer da Montanha", cat: "comida", desc: "Hambúrguer grelhado no fogo forte.", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200" },
+            { id: 3, nome: "Atibaia Fashion", cat: "moda", desc: "Tendências do verão e inverno local.", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200" },
+            { id: 4, nome: "Salão Estrela", cat: "beleza", desc: "Corte, barba e tratamentos estéticos.", img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=200" },
+            { id: 5, nome: "Mecânica Rápida", cat: "servicos", desc: "Manutenção preventiva em Atibaia.", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=200" }
+        ];
+
+        // 4. Filtra e exibe as lojas
+        const lojasFiltradas = todasLojas.filter(l => l.cat === cat);
+
+        if(lojasFiltradas.length > 0) {
+            lojasFiltradas.forEach((loja, index) => {
+                container.innerHTML += `
+                    <a href="loja.html?id=${loja.id}" class="card-loja" style="animation-delay: ${index * 0.1}s">
+                        <img src="${loja.img}" class="img-loja">
+                        <div class="info-loja">
+                            <span class="status-badge">ABERTO AGORA</span>
+                            <h3>${loja.nome}</h3>
+                            <p>${loja.desc}</p>
+                        </div>
+                    </a>
+                `;
+            });
+        } else {
+            container.innerHTML = `<p style="text-align:center; color:#8899a6; margin-top:50px;">Nenhuma loja encontrada nesta categoria em Atibaia.</p>`;
+        }
+    </script>
+</body>
+</html>

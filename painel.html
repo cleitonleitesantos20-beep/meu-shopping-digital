@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Painel do Lojista - Atibaia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --dark-bg: #1a2634;
+            --card-bg: #243447;
+            --text-light: #ecf0f1;
+            --facebook: #1877F2;
+            --instagram: #E4405F;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            margin: 0; font-family: 'Montserrat', sans-serif; 
+            background: var(--dark-bg); color: var(--text-light); 
+            padding-bottom: 100px;
+        }
+
+        header { 
+            padding: 20px; background: var(--card-bg);
+            border-bottom: 2px solid var(--primary);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .btn-voltar { color: var(--primary); text-decoration: none; font-weight: 900; font-size: 0.8rem; }
+
+        .container { padding: 20px; }
+
+        /* --- STATS CARDS (SEM CURTIDAS) --- */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .stat-card { 
+            background: var(--card-bg); padding: 15px; border-radius: 15px; 
+            text-align: center; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .stat-card h3 { margin: 0; font-size: 1.2rem; color: var(--primary); }
+        .stat-card span { font-size: 0.6rem; opacity: 0.6; text-transform: uppercase; font-weight: 700; }
+
+        /* --- MENU DE ACÕES --- */
+        .menu-titulo { font-size: 0.8rem; font-weight: 900; margin-bottom: 15px; color: var(--primary); opacity: 0.8; }
+        
+        .action-button {
+            background: var(--card-bg); width: 100%; padding: 18px;
+            border-radius: 15px; display: flex; align-items: center;
+            text-decoration: none; color: white; margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        .action-button:active { transform: scale(0.98); background: #2d4059; }
+        .action-icon { font-size: 1.5rem; margin-right: 15px; }
+        .action-info h4 { margin: 0; font-size: 0.9rem; }
+        .action-info p { margin: 2px 0 0; font-size: 0.7rem; opacity: 0.6; }
+
+        /* --- SEÇÃO DE LINKS SOCIAIS --- */
+        .social-links-area {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 0.65rem; font-weight: 900; margin-bottom: 8px; opacity: 0.7; }
+        .input-group input {
+            width: 100%; background: var(--dark-bg); border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px; border-radius: 10px; color: white; font-family: 'Montserrat'; outline: none;
+        }
+        .btn-salvar-links {
+            width: 100%; background: var(--primary); border: none; padding: 15px;
+            border-radius: 12px; color: white; font-weight: 900; font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .btn-sair {
+            display: block; width: 100%; text-align: center;
+            padding: 15px; color: #ff4757; font-weight: 900;
+            text-decoration: none; font-size: 0.8rem; margin-top: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="btn-voltar">‹ VOLTAR</a>
+        <h2 style="margin:0; font-size: 1rem;">PAINEL DA LOJA</h2>
+        <div style="width: 50px;"></div> 
+    </header>
+
+    <div class="container">
+        
+        <div class="menu-titulo">RESUMO DE ACESSOS</div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>1.240</h3>
+                <span>Visitas à Loja</span>
+            </div>
+            <div class="stat-card">
+                <h3>85</h3>
+                <span>Cliques WhatsApp</span>
+            </div>
+        </div>
+
+        <div class="menu-titulo">REDES SOCIAIS & CONTATO</div>
+        <div class="social-links-area">
+            <div class="input-group">
+                <label>WHATSAPP (Link ou Número)</label>
+                <input type="text" placeholder="Ex: 11999999999">
+            </div>
+            <div class="input-group">
+                <label>LINK DO FACEBOOK</label>
+                <input type="text" placeholder="facebook.com/sualoja">
+            </div>
+            <div class="input-group">
+                <label>LINK DO INSTAGRAM</label>
+                <input type="text" placeholder="@sualoja">
+            </div>
+            <button class="btn-salvar-links">SALVAR LINKS</button>
+        </div>
+
+        <div style="margin-top: 30px;" class="menu-titulo">CONTEÚDO</div>
+
+        <a href="#" class="action-button">
+            <div class="action-icon">🎬</div>
+            <div class="action-info">
+                <h4>Postar Novo Reels</h4>
+                <p>O vídeo aparecerá na aba Reels</p>
+            </div>
+        </a>
+
+        <a href="#" class="action-button">
+            <div class="action-icon">🛍️</div>
+            <div class="action-info">
+                <h4>Gerenciar Produtos</h4>
+                <p>Edite fotos e preços</p>
+            </div>
+        </a>
+
+        <a href="index.html" class="btn-sair">SAIR DO PAINEL</a>
+
+    </div>
+
+</body>
+</html>
