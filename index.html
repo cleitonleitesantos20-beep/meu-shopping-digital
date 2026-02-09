@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shopping Virtual Atibaia</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2ecc71">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #2ecc71;
@@ -48,7 +55,7 @@
             background: var(--card-bg); padding: 20px; border-radius: 25px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             z-index: 2000; border: 1px solid var(--primary);
-            display: none; /* Começa escondido */
+            display: none; 
             animation: slideUp 0.5s ease;
         }
         @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -59,6 +66,7 @@
         .btn-pwa {
             flex: 1; padding: 12px; border: none; border-radius: 12px;
             font-family: 'Montserrat'; font-weight: 900; font-size: 0.65rem; cursor: pointer;
+            text-align: center; text-decoration: none;
         }
         .btn-instalar { background: var(--primary); color: white; }
         .btn-notificar { background: white; color: var(--dark-bg); }
@@ -126,8 +134,8 @@
             <p>Receba ofertas exclusivas de Atibaia e instale nosso App para acesso rápido.</p>
         </div>
         <div class="pwa-actions">
-            <button class="btn-pwa btn-notificar" onclick="fecharModal()">🔔 NOTIFICAR</button>
-            <button class="btn-pwa btn-instalar" onclick="fecharModal()">📲 INSTALAR APP</button>
+            <button class="btn-pwa btn-notificar" id="btn-notificar">🔔 NOTIFICAR</button>
+            <button class="btn-pwa btn-instalar" id="btn-instalar">📲 INSTALAR APP</button>
         </div>
     </div>
 
@@ -161,19 +169,60 @@
     </div>
 
     <script>
-        // Mostrar o modal após 2 segundos
-        window.onload = function() {
-            setTimeout(function() {
-                document.getElementById('pwa-modal').style.display = 'block';
-            }, 2000);
-        };
-
-        function fecharModal() {
-            document.getElementById('pwa-modal').style.display = 'none';
-            // Aqui você dispararia a lógica real de Push Notification ou Prompt de Instalação
-            console.log("Ação PWA executada.");
+        // 1. REGISTRO DO SERVICE WORKER
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(() => console.log("Service Worker Ativo"))
+            .catch(err => console.log("Erro SW:", err));
         }
-    </script>
 
+        // 2. LÓGICA DE INSTALAÇÃO (PWA)
+        let deferredPrompt;
+        const pwaModal = document.getElementById('pwa-modal');
+        const btnInstalar = document.getElementById('btn-instalar');
+        const btnNotificar = document.getElementById('btn-notificar');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Só mostra o modal se o navegador permitir a instalação
+            setTimeout(() => {
+                pwaModal.style.display = 'block';
+            }, 2000);
+        });
+
+        btnInstalar.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`Usuário escolheu: ${outcome}`);
+                deferredPrompt = null;
+                pwaModal.style.display = 'none';
+            }
+        });
+
+        // 3. LÓGICA DE NOTIFICAÇÃO
+        btnNotificar.addEventListener('click', () => {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    new Notification("Shopping Atibaia", {
+                        body: "Você receberá as melhores ofertas agora!",
+                        icon: "https://cdn-icons-png.flaticon.com/512/2331/2331970.png"
+                    });
+                }
+                pwaModal.style.display = 'none';
+            });
+        });
+
+        // Caso o evento 'beforeinstallprompt' não dispare (ex: já instalado), 
+        // podemos mostrar o modal para notificações de qualquer forma após 5s
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (pwaModal.style.display !== 'block' && Notification.permission === 'default') {
+                    pwaModal.style.display = 'block';
+                }
+            }, 5000);
+        });
+    </script>
 </body>
 </html>
