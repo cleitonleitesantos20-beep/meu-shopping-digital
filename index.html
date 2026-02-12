@@ -19,8 +19,12 @@
             --card-bg: #243447;
             --text-light: #ecf0f1;
             --gold: #f1c40f;
-            /* Cores novas para as lojas */
             --bg-loja: #34495e; 
+            /* Cores para categorias */
+            --cat-food: #e67e22;
+            --cat-fashion: #9b59b6;
+            --cat-gas: #e74c3c;
+            --cat-tech: #3498db;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -65,10 +69,10 @@
             border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;
         }
 
-        /* --- GRID DE LOJAS (MODIFICADO) --- */
+        /* --- GRID DE CATEGORIAS (ANTIGO LOJAS) --- */
         .lojas-area { 
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); /* 3 colunas para caber mais lojas */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 15px; 
             padding: 20px; 
         }
@@ -81,13 +85,21 @@
             border-radius: 15px;
             border: 1px solid rgba(255,255,255,0.05);
             transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
         }
         .btn-loja:active { transform: scale(0.95); }
 
-        .loja-icon {
-            font-size: 1.5rem; margin-bottom: 8px;
+        /* Pequena barra colorida no topo do card da categoria */
+        .btn-loja::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--primary); opacity: 0.7;
         }
-        .btn-loja span { font-size: 0.55rem; font-weight: 900; text-align: center; line-height: 1.2; }
+
+        .loja-icon {
+            font-size: 1.8rem; margin-bottom: 8px;
+        }
+        .btn-loja span { font-size: 0.6rem; font-weight: 900; text-align: center; line-height: 1.2; text-transform: uppercase; }
 
         /* --- DESTAQUES --- */
         .section-label { 
@@ -103,19 +115,19 @@
             gap: 15px; padding: 0 20px;
         }
         
-        /* Agora o destaque é um Link (A) para ser clicável */
         .destaque-link {
             flex: 0 0 240px; height: 140px; border-radius: 20px;
             background-size: cover; background-position: center; position: relative;
             border: 1px solid rgba(255,255,255,0.1);
-            display: block; /* Para o link funcionar no bloco todo */
+            display: block;
         }
 
-        /* --- NAV BAR NOVO (NOTÍCIAS) --- */
+        /* --- NAV BAR (SEM PERFIL) --- */
         .nav-bottom {
             position: fixed; bottom: 40px; left: 0; width: 100%;
             background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex; justify-content: space-around; padding: 10px 0;
+            display: flex; justify-content: center; gap: 60px; /* Aumentei o gap pois tem menos itens */
+            padding: 10px 0;
             z-index: 1001;
         }
         .nav-item { text-decoration: none; color: #8899a6; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; font-weight: 700; }
@@ -131,9 +143,9 @@
         }
         .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.8rem; font-weight: 900; }
 
-        /* ESTILOS EXTRAS (MODAIS E TAREFAS) */
+        /* MODAIS E TAREFAS */
         #overlay-tarefas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 38, 52, 0.98); z-index: 3000; display: none; flex-direction: column; overflow-y: auto; animation: fadeIn 0.3s ease; }
-        .tarefas-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .tarefas-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); background: #151f2b; }
         .btn-fechar-tarefas { font-size: 1.5rem; color: white; background: none; border: none; }
         #auth-view { padding: 40px 20px; text-align: center; display: none; }
         .input-auth { width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #444; background: #243447; color: white; }
@@ -145,6 +157,13 @@
         .checkin-info h4 { margin: 0; color: var(--gold); } .checkin-info p { margin: 5px 0 0; font-size: 0.7rem; color: #aaa; }
         .btn-checkin { background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 900; font-size: 0.7rem; cursor: pointer; }
         .btn-checkin:disabled { background: #555; color: #888; cursor: not-allowed; }
+        
+        .section-tarefas-title {
+            background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px;
+            font-size: 0.8rem; font-weight: 900; color: #ccc; margin-bottom: 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
         .missao-item { background: var(--card-bg); padding: 15px; border-radius: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .missao-icon { font-size: 1.5rem; } .missao-detalhes { flex: 1; } .missao-titulo { font-weight: 700; font-size: 0.9rem; display: block; }
         .missao-recompensa { color: var(--primary); font-size: 0.8rem; font-weight: 900; }
@@ -179,7 +198,7 @@
 
     <div id="overlay-tarefas">
         <div class="tarefas-header">
-            <h2 style="margin:0; font-size:1.2rem;">Minha Carteira</h2>
+            <h2 style="margin:0; font-size:1.2rem;">Central de Prêmios</h2>
             <button class="btn-fechar-tarefas" onclick="fecharTarefas()">✕</button>
         </div>
         <div id="auth-view">
@@ -195,15 +214,24 @@
                 <span class="saldo-valor" id="valor-saldo">R$ 0,00</span>
                 <p style="font-size:0.7rem; margin:5px 0 0;">Use em lojas parceiras</p>
             </div>
+            
             <div class="checkin-container">
                 <div class="checkin-info">
                     <h4>💎 Check-in Diário</h4>
-                    <p>Ganhe R$ 0,10 todo dia!</p>
+                    <p>Veja 1 anúncio e ganhe!</p>
                 </div>
-                <button class="btn-checkin" id="btn-checkin" onclick="fazerCheckin()">PEGAR</button>
+                <button class="btn-checkin" id="btn-checkin" onclick="fazerCheckin()">+ R$ 0,10</button>
             </div>
-            <h3 style="margin: 20px 0 10px; font-size:0.9rem; text-transform:uppercase; color:#888;">Missões Disponíveis</h3>
+
+            <div class="section-tarefas-title">
+                📝 TAREFAS SEMANAIS (Reseta Domingo)
+            </div>
+            
             <div id="lista-missoes"></div>
+            
+            <p style="text-align:center; font-size:0.6rem; color:#555; margin-top:20px;">
+                As missões resetam automaticamente toda semana.
+            </p>
         </div>
     </div>
 
@@ -219,42 +247,41 @@
     </div>
 
     <div class="lojas-area">
-        <a href="loja-1-1.html" class="btn-loja">
+        <a href="lista-comida.html" class="btn-loja" style="--primary: var(--cat-food)">
             <div class="loja-icon">🍔</div>
-            <span>BURGER KING<br><small>(Loja 1-1)</small></span>
+            <span>COMIDA &<br>DELIVERY</span>
         </a>
-        <a href="loja-1-2.html" class="btn-loja">
-            <div class="loja-icon">🍕</div>
-            <span>PIZZARIA<br><small>(Loja 1-2)</small></span>
-        </a>
-        <a href="loja-1-3.html" class="btn-loja">
-            <div class="loja-icon">🌭</div>
-            <span>HOT DOG<br><small>(Loja 1-3)</small></span>
-        </a>
-        <a href="loja-1-4.html" class="btn-loja">
-            <div class="loja-icon">🍨</div>
-            <span>SORVETES<br><small>(Loja 1-4)</small></span>
-        </a>
-        <a href="loja-1-5.html" class="btn-loja">
-            <div class="loja-icon">🍣</div>
-            <span>SUSHI<br><small>(Loja 1-5)</small></span>
-        </a>
-        <a href="loja-1-6.html" class="btn-loja">
-            <div class="loja-icon">🍩</div>
-            <span>DOCES<br><small>(Loja 1-6)</small></span>
-        </a>
-        
-        <a href="loja-2-1.html" class="btn-loja" style="border-color: var(--cor-moda)">
+        <a href="lista-roupas.html" class="btn-loja" style="--primary: var(--cat-fashion)">
             <div class="loja-icon">👗</div>
-            <span>MODA FEM<br><small>(Loja 2-1)</small></span>
+            <span>ROUPAS &<br>MODA</span>
         </a>
-        <a href="loja-2-2.html" class="btn-loja" style="border-color: var(--cor-moda)">
-            <div class="loja-icon">👔</div>
-            <span>MODA MASC<br><small>(Loja 2-2)</small></span>
+        <a href="lista-acessorios.html" class="btn-loja" style="--primary: var(--cat-fashion)">
+            <div class="loja-icon">👜</div>
+            <span>ACESSÓRIOS</span>
         </a>
-        <a href="loja-2-3.html" class="btn-loja" style="border-color: var(--cor-moda)">
+        <a href="lista-calcados.html" class="btn-loja" style="--primary: var(--cat-fashion)">
             <div class="loja-icon">👟</div>
-            <span>CALÇADOS<br><small>(Loja 2-3)</small></span>
+            <span>CALÇADOS</span>
+        </a>
+        <a href="lista-postos.html" class="btn-loja" style="--primary: var(--cat-gas)">
+            <div class="loja-icon">⛽</div>
+            <span>POSTOS &<br>SERVIÇOS</span>
+        </a>
+        <a href="lista-eletronicos.html" class="btn-loja" style="--primary: var(--cat-tech)">
+            <div class="loja-icon">📱</div>
+            <span>CELULARES</span>
+        </a>
+        <a href="lista-farmacia.html" class="btn-loja" style="--primary: #fff">
+            <div class="loja-icon">💊</div>
+            <span>FARMÁCIA</span>
+        </a>
+        <a href="lista-mercado.html" class="btn-loja" style="--primary: #f1c40f">
+            <div class="loja-icon">🛒</div>
+            <span>MERCADO</span>
+        </a>
+        <a href="lista-outros.html" class="btn-loja" style="--primary: #95a5a6">
+            <div class="loja-icon">➕</div>
+            <span>OUTROS</span>
         </a>
     </div>
 
@@ -264,14 +291,10 @@
     </div>
     <div class="viewport-destaques">
         <div class="destaques-track">
-            <a href="promocao-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');">
-            </a>
-            <a href="promocao-2.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');">
-            </a>
-            <a href="loja-1-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=400');">
-            </a>
-            <a href="loja-2-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400');">
-            </a>
+            <a href="promocao-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');"></a>
+            <a href="promocao-2.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');"></a>
+            <a href="loja-1-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=400');"></a>
+            <a href="loja-2-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400');"></a>
         </div>
     </div>
 
@@ -281,9 +304,6 @@
         </a>
         <a href="noticias.html" class="nav-item">
             <i>📰</i>NOTÍCIAS
-        </a>
-        <a href="perfil.html" class="nav-item">
-            <i>👤</i>PERFIL
         </a>
     </div>
 
@@ -321,11 +341,18 @@
                     pwaModal.style.display = 'block';
                 }
             }, 5000);
+            
+            // Verifica o reset semanal ao carregar
+            verificarResetSemanal();
         });
 
         // --- SISTEMA DE TAREFAS E SALDO ---
         let usuario = JSON.parse(localStorage.getItem('user_atibaia')) || {
-            logado: false, saldo: 0.00, ultimoCheckin: null, missoesConcluidas: []
+            logado: false, 
+            saldo: 0.00, 
+            ultimoCheckin: null, 
+            missoesConcluidas: [],
+            ultimaSemanaReset: null // Para controlar o reset semanal
         };
 
         const overlay = document.getElementById('overlay-tarefas');
@@ -333,12 +360,34 @@
         const dashView = document.getElementById('dashboard-view');
         const saldoEl = document.getElementById('valor-saldo');
 
-        // Missões Atualizadas com os novos Links
+        // Missões conforme solicitado: Links externos e visitar páginas
         const missoes = [
-            { id: 'm1', titulo: 'Ler Notícias do Dia', recompensa: 0.05, link: 'noticias.html', icon: '📰' },
-            { id: 'm2', titulo: 'Ver Destaques do Mês', recompensa: 0.05, link: 'promocao-1.html', icon: '⭐' },
-            { id: 'm3', titulo: 'Visitar Burger King', recompensa: 0.10, link: 'loja-1-1.html', icon: '🍔' }
+            { id: 'm_insta', titulo: 'Seguir no Instagram', recompensa: 0.05, link: 'https://instagram.com', icon: '📸', externo: true },
+            { id: 'm_face', titulo: 'Curtir no Facebook', recompensa: 0.05, link: 'https://facebook.com', icon: '👍', externo: true },
+            { id: 'm_pag1', titulo: 'Ver Ofertas de Comida', recompensa: 0.05, link: 'lista-comida.html', icon: '🍔', externo: false },
+            { id: 'm_pag2', titulo: 'Ver Ofertas de Roupas', recompensa: 0.05, link: 'lista-roupas.html', icon: '👗', externo: false },
+            { id: 'm_pag3', titulo: 'Conhecer os Destaques', recompensa: 0.05, link: 'promocao-1.html', icon: '⭐', externo: false }
         ];
+
+        // Função auxiliar para pegar o número da semana atual
+        function getNumeroSemana() {
+            const date = new Date();
+            const oneJan = new Date(date.getFullYear(), 0, 1);
+            const numberOfDays = Math.floor((date - oneJan) / (24 * 60 * 60 * 1000));
+            return Math.ceil((date.getDay() + 1 + numberOfDays) / 7);
+        }
+
+        function verificarResetSemanal() {
+            const semanaAtual = getNumeroSemana();
+            
+            // Se não tem registro ou a semana mudou, reseta as missões
+            if (usuario.ultimaSemanaReset !== semanaAtual) {
+                usuario.missoesConcluidas = []; // Limpa missões
+                usuario.ultimaSemanaReset = semanaAtual; // Atualiza a semana
+                salvarDados();
+                console.log("Missões resetadas para a nova semana!");
+            }
+        }
 
         function abrirTarefas() { overlay.style.display = 'flex'; atualizarTelaTarefas(); }
         function fecharTarefas() { overlay.style.display = 'none'; }
@@ -366,13 +415,27 @@
             if (usuario.ultimoCheckin === hoje) {
                 btn.disabled = true; btn.innerText = "VOLTE AMANHÃ"; btn.style.opacity = "0.5";
             } else {
-                btn.disabled = false; btn.innerText = "PEGAR R$ 0,10"; btn.style.opacity = "1";
+                btn.disabled = false; btn.innerText = "VER ANÚNCIO (+R$ 0,10)"; btn.style.opacity = "1";
             }
         }
 
         function fazerCheckin() {
-            usuario.saldo += 0.10; usuario.ultimoCheckin = new Date().toDateString();
-            salvarDados(); atualizarTelaTarefas(); alert("Parabéns! +R$ 0,10 adicionado.");
+            // Simulando a "Propaganda ao Clicar"
+            const aceitou = confirm("Assista a um anúncio rápido de nosso patrocinador para ganhar sua recompensa!");
+            
+            if (aceitou) {
+                // Abre o link da propaganda (exemplo: Google) em nova aba
+                window.open('https://www.google.com', '_blank');
+                
+                // Dá o saldo
+                setTimeout(() => {
+                    usuario.saldo += 0.10; 
+                    usuario.ultimoCheckin = new Date().toDateString();
+                    salvarDados(); 
+                    atualizarTelaTarefas(); 
+                    alert("Obrigado! +R$ 0,10 adicionado.");
+                }, 1000); // Pequeno delay para simular processamento
+            }
         }
 
         function renderizarMissoes() {
@@ -381,8 +444,13 @@
             missoes.forEach(m => {
                 const feita = usuario.missoesConcluidas.includes(m.id);
                 const classeExtra = feita ? 'missao-concluida' : '';
-                const textoBtn = feita ? 'FEITO' : 'IR AGORA';
-                const acao = feita ? '' : `onclick="iniciarMissao('${m.id}', '${m.link}', ${m.recompensa})"`;
+                const textoBtn = feita ? 'FEITO' : 'IR';
+                
+                // Se for externo, abre nova aba. Se for interno, redireciona.
+                const target = m.externo ? '_blank' : '_self';
+                
+                // Ao clicar, chama iniciarMissao
+                const acao = feita ? '' : `onclick="iniciarMissao('${m.id}', '${m.link}', ${m.recompensa}, ${m.externo})"`;
 
                 lista.innerHTML += `
                     <div class="missao-item ${classeExtra}">
@@ -396,9 +464,19 @@
             });
         }
 
-        function iniciarMissao(id, link, valor) {
-            usuario.saldo += valor; usuario.missoesConcluidas.push(id);
-            salvarDados(); window.location.href = link;
+        function iniciarMissao(id, link, valor, externo) {
+            // Adiciona saldo e marca como feita
+            usuario.saldo += valor; 
+            usuario.missoesConcluidas.push(id);
+            salvarDados(); 
+            
+            // Redireciona
+            if(externo) {
+                window.open(link, '_blank');
+                atualizarTelaTarefas(); // Atualiza a tela pois o usuário continua aqui
+            } else {
+                window.location.href = link;
+            }
         }
 
         function salvarDados() { localStorage.setItem('user_atibaia', JSON.stringify(usuario)); }
