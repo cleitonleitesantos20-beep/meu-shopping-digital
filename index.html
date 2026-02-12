@@ -18,11 +18,9 @@
             --dark-bg: #1a2634;
             --card-bg: #243447;
             --text-light: #ecf0f1;
-            --cor-comida: #ff9f43;
-            --cor-moda: #48dbfb;
-            --cor-servicos: #1dd1a1;
-            --cor-beleza: #ff9ff3;
             --gold: #f1c40f;
+            /* Cores novas para as lojas */
+            --bg-loja: #34495e; 
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -34,7 +32,7 @@
             overflow-x: hidden; 
         }
 
-        /* --- HEADER COM BOTÃO TAREFAS --- */
+        /* --- HEADER --- */
         header { 
             padding: 15px 20px; background: rgba(26, 38, 52, 0.95);
             backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000;
@@ -67,111 +65,36 @@
             border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;
         }
 
-        /* --- OVERLAY DE TAREFAS (A TELA QUE ABRE POR CIMA) --- */
-        #overlay-tarefas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(26, 38, 52, 0.98); z-index: 3000;
-            display: none; flex-direction: column; overflow-y: auto;
-            animation: fadeIn 0.3s ease;
+        /* --- GRID DE LOJAS (MODIFICADO) --- */
+        .lojas-area { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); /* 3 colunas para caber mais lojas */
+            gap: 15px; 
+            padding: 20px; 
         }
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-
-        .tarefas-header {
-            padding: 20px; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .btn-fechar-tarefas { font-size: 1.5rem; color: white; background: none; border: none; }
-
-        /* --- TELA DE LOGIN DENTRO DAS TAREFAS --- */
-        #auth-view { padding: 40px 20px; text-align: center; display: none; }
-        .input-auth {
-            width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 10px;
-            border: 1px solid #444; background: #243447; color: white;
-        }
-        .btn-entrar {
-            width: 100%; padding: 15px; background: var(--primary); color: white;
-            border: none; border-radius: 10px; font-weight: 900; cursor: pointer;
-        }
-
-        /* --- DASHBOARD DE TAREFAS --- */
-        #dashboard-view { padding: 20px; display: none; }
         
-        .saldo-card {
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
-            padding: 20px; border-radius: 20px; text-align: center;
-            margin-bottom: 25px; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
-        }
-        .saldo-valor { font-size: 2.5rem; font-weight: 900; display: block; }
-        .saldo-label { font-size: 0.8rem; opacity: 0.9; text-transform: uppercase; }
-
-        /* CHECK-IN DIÁRIO */
-        .checkin-container {
-            background: var(--card-bg); padding: 15px; border-radius: 15px;
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 25px; border: 1px solid var(--gold);
-        }
-        .checkin-info h4 { margin: 0; color: var(--gold); }
-        .checkin-info p { margin: 5px 0 0; font-size: 0.7rem; color: #aaa; }
-        .btn-checkin {
-            background: var(--gold); color: #000; border: none;
-            padding: 10px 20px; border-radius: 50px; font-weight: 900;
-            font-size: 0.7rem; cursor: pointer;
-        }
-        .btn-checkin:disabled { background: #555; color: #888; cursor: not-allowed; }
-
-        /* LISTA DE MISSÕES */
-        .missao-item {
-            background: var(--card-bg); padding: 15px; border-radius: 15px;
-            margin-bottom: 10px; display: flex; align-items: center; gap: 15px;
+        .btn-loja { 
+            text-decoration: none; color: white; 
+            display: flex; flex-direction: column; align-items: center; 
+            background: var(--card-bg);
+            padding: 15px 5px;
+            border-radius: 15px;
             border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.2s;
         }
-        .missao-icon { font-size: 1.5rem; }
-        .missao-detalhes { flex: 1; }
-        .missao-titulo { font-weight: 700; font-size: 0.9rem; display: block; }
-        .missao-recompensa { color: var(--primary); font-size: 0.8rem; font-weight: 900; }
-        
-        .btn-fazer-missao {
-            background: rgba(255,255,255,0.1); color: white; border: none;
-            padding: 8px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 700;
-        }
-        .missao-concluida { opacity: 0.5; }
-        .missao-concluida .btn-fazer-missao { background: var(--primary); content: "FEITO"; pointer-events: none; }
+        .btn-loja:active { transform: scale(0.95); }
 
-
-        /* --- ESTILO DO AVISO DE INSTALAÇÃO (PWA) --- */
-        #pwa-modal {
-            position: fixed; bottom: 110px; left: 20px; right: 20px;
-            background: var(--card-bg); padding: 20px; border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-            z-index: 2000; border: 1px solid var(--primary);
-            display: none; 
-            animation: slideUp 0.5s ease;
+        .loja-icon {
+            font-size: 1.5rem; margin-bottom: 8px;
         }
-        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .pwa-content h3 { margin: 0 0 5px 0; font-size: 0.9rem; color: var(--primary); }
-        .pwa-content p { margin: 0 0 15px 0; font-size: 0.7rem; opacity: 0.8; line-height: 1.4; }
-        .pwa-actions { display: flex; gap: 10px; }
-        .btn-pwa {
-            flex: 1; padding: 12px; border: none; border-radius: 12px;
-            font-family: 'Montserrat'; font-weight: 900; font-size: 0.65rem; cursor: pointer;
-            text-align: center; text-decoration: none;
-        }
-        .btn-instalar { background: var(--primary); color: white; }
-        .btn-notificar { background: white; color: var(--dark-bg); }
-
-        /* --- CATEGORIAS --- */
-        .categorias-area { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
-        .btn-categoria { text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; }
-        .cat-icon {
-            width: 50px; height: 50px; border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; margin-bottom: 8px;
-        }
-        .btn-categoria span { font-size: 0.6rem; font-weight: 900; }
+        .btn-loja span { font-size: 0.55rem; font-weight: 900; text-align: center; line-height: 1.2; }
 
         /* --- DESTAQUES --- */
-        .section-label { padding: 0 20px; font-weight: 700; font-size: 0.75rem; margin-top: 25px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.3); }
+        .section-label { 
+            padding: 0 20px; font-weight: 700; font-size: 0.75rem; 
+            margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; 
+            color: rgba(255,255,255,0.3); display: flex; justify-content: space-between;
+        }
 
         .viewport-destaques { width: 100%; overflow: hidden; margin-top: 15px; }
         .destaques-track {
@@ -179,13 +102,16 @@
             animation: rotateCarousel 20s linear infinite;
             gap: 15px; padding: 0 20px;
         }
-        .destaque-card {
+        
+        /* Agora o destaque é um Link (A) para ser clicável */
+        .destaque-link {
             flex: 0 0 240px; height: 140px; border-radius: 20px;
             background-size: cover; background-position: center; position: relative;
             border: 1px solid rgba(255,255,255,0.1);
+            display: block; /* Para o link funcionar no bloco todo */
         }
 
-        /* --- NAV BAR --- */
+        /* --- NAV BAR NOVO (NOTÍCIAS) --- */
         .nav-bottom {
             position: fixed; bottom: 40px; left: 0; width: 100%;
             background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1);
@@ -205,8 +131,36 @@
         }
         .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.8rem; font-weight: 900; }
 
+        /* ESTILOS EXTRAS (MODAIS E TAREFAS) */
+        #overlay-tarefas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 38, 52, 0.98); z-index: 3000; display: none; flex-direction: column; overflow-y: auto; animation: fadeIn 0.3s ease; }
+        .tarefas-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .btn-fechar-tarefas { font-size: 1.5rem; color: white; background: none; border: none; }
+        #auth-view { padding: 40px 20px; text-align: center; display: none; }
+        .input-auth { width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #444; background: #243447; color: white; }
+        .btn-entrar { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 900; cursor: pointer; }
+        #dashboard-view { padding: 20px; display: none; }
+        .saldo-card { background: linear-gradient(45deg, #2ecc71, #27ae60); padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); }
+        .saldo-valor { font-size: 2.5rem; font-weight: 900; display: block; }
+        .checkin-container { background: var(--card-bg); padding: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; border: 1px solid var(--gold); }
+        .checkin-info h4 { margin: 0; color: var(--gold); } .checkin-info p { margin: 5px 0 0; font-size: 0.7rem; color: #aaa; }
+        .btn-checkin { background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 900; font-size: 0.7rem; cursor: pointer; }
+        .btn-checkin:disabled { background: #555; color: #888; cursor: not-allowed; }
+        .missao-item { background: var(--card-bg); padding: 15px; border-radius: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .missao-icon { font-size: 1.5rem; } .missao-detalhes { flex: 1; } .missao-titulo { font-weight: 700; font-size: 0.9rem; display: block; }
+        .missao-recompensa { color: var(--primary); font-size: 0.8rem; font-weight: 900; }
+        .btn-fazer-missao { background: rgba(255,255,255,0.1); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; }
+        .missao-concluida { opacity: 0.5; } .missao-concluida .btn-fazer-missao { background: var(--primary); content: "FEITO"; pointer-events: none; }
+        
+        /* PWA */
+        #pwa-modal { position: fixed; bottom: 110px; left: 20px; right: 20px; background: var(--card-bg); padding: 20px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); z-index: 2000; border: 1px solid var(--primary); display: none; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .pwa-content h3 { margin: 0 0 5px 0; font-size: 0.9rem; color: var(--primary); } .pwa-content p { margin: 0 0 15px 0; font-size: 0.7rem; opacity: 0.8; line-height: 1.4; }
+        .pwa-actions { display: flex; gap: 10px; } .btn-pwa { flex: 1; padding: 12px; border: none; border-radius: 12px; font-family: 'Montserrat'; font-weight: 900; font-size: 0.65rem; cursor: pointer; text-align: center; text-decoration: none; }
+        .btn-instalar { background: var(--primary); color: white; } .btn-notificar { background: white; color: var(--dark-bg); }
+
         @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         @keyframes rotateCarousel { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
     </style>
 </head>
@@ -228,7 +182,6 @@
             <h2 style="margin:0; font-size:1.2rem;">Minha Carteira</h2>
             <button class="btn-fechar-tarefas" onclick="fecharTarefas()">✕</button>
         </div>
-
         <div id="auth-view">
             <h3 style="color:var(--primary)">Acesse para ganhar!</h3>
             <p style="font-size:0.8rem; margin-bottom:20px;">Crie sua conta grátis para acumular cashback e completar missões.</p>
@@ -236,14 +189,12 @@
             <input type="password" placeholder="Senha" class="input-auth">
             <button class="btn-entrar" onclick="fazerLogin()">ACESSAR AGORA</button>
         </div>
-
         <div id="dashboard-view">
             <div class="saldo-card">
                 <span class="saldo-label">Seu Saldo Atual</span>
                 <span class="saldo-valor" id="valor-saldo">R$ 0,00</span>
                 <p style="font-size:0.7rem; margin:5px 0 0;">Use em lojas parceiras</p>
             </div>
-
             <div class="checkin-container">
                 <div class="checkin-info">
                     <h4>💎 Check-in Diário</h4>
@@ -251,11 +202,8 @@
                 </div>
                 <button class="btn-checkin" id="btn-checkin" onclick="fazerCheckin()">PEGAR</button>
             </div>
-
             <h3 style="margin: 20px 0 10px; font-size:0.9rem; text-transform:uppercase; color:#888;">Missões Disponíveis</h3>
-            
-            <div id="lista-missoes">
-                </div>
+            <div id="lista-missoes"></div>
         </div>
     </div>
 
@@ -270,27 +218,73 @@
         </div>
     </div>
 
-    <div class="categorias-area">
-        <a href="lista.html?cat=comida" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-comida)">🍕</div><span>COMIDA</span></a>
-        <a href="lista.html?cat=moda" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-moda)">👜</div><span>MODA</span></a>
-        <a href="lista.html?cat=servicos" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-servicos)">🛠️</div><span>SERVIÇOS</span></a>
-        <a href="lista.html?cat=beleza" class="btn-categoria"><div class="cat-icon" style="background:var(--cor-beleza)">💄</div><span>BELEZA</span></a>
+    <div class="lojas-area">
+        <a href="loja-1-1.html" class="btn-loja">
+            <div class="loja-icon">🍔</div>
+            <span>BURGER KING<br><small>(Loja 1-1)</small></span>
+        </a>
+        <a href="loja-1-2.html" class="btn-loja">
+            <div class="loja-icon">🍕</div>
+            <span>PIZZARIA<br><small>(Loja 1-2)</small></span>
+        </a>
+        <a href="loja-1-3.html" class="btn-loja">
+            <div class="loja-icon">🌭</div>
+            <span>HOT DOG<br><small>(Loja 1-3)</small></span>
+        </a>
+        <a href="loja-1-4.html" class="btn-loja">
+            <div class="loja-icon">🍨</div>
+            <span>SORVETES<br><small>(Loja 1-4)</small></span>
+        </a>
+        <a href="loja-1-5.html" class="btn-loja">
+            <div class="loja-icon">🍣</div>
+            <span>SUSHI<br><small>(Loja 1-5)</small></span>
+        </a>
+        <a href="loja-1-6.html" class="btn-loja">
+            <div class="loja-icon">🍩</div>
+            <span>DOCES<br><small>(Loja 1-6)</small></span>
+        </a>
+        
+        <a href="loja-2-1.html" class="btn-loja" style="border-color: var(--cor-moda)">
+            <div class="loja-icon">👗</div>
+            <span>MODA FEM<br><small>(Loja 2-1)</small></span>
+        </a>
+        <a href="loja-2-2.html" class="btn-loja" style="border-color: var(--cor-moda)">
+            <div class="loja-icon">👔</div>
+            <span>MODA MASC<br><small>(Loja 2-2)</small></span>
+        </a>
+        <a href="loja-2-3.html" class="btn-loja" style="border-color: var(--cor-moda)">
+            <div class="loja-icon">👟</div>
+            <span>CALÇADOS<br><small>(Loja 2-3)</small></span>
+        </a>
     </div>
 
-    <div class="section-label">DESTAQUES DA SEMANA</div>
+    <div class="section-label">
+        <span>DESTAQUES DO MÊS</span>
+        <span style="font-size:0.6rem; opacity:0.5">VER TODOS</span>
+    </div>
     <div class="viewport-destaques">
         <div class="destaques-track">
-            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');"></div>
-            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');"></div>
-            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');"></div>
-            <div class="destaque-card" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');"></div>
+            <a href="promocao-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');">
+            </a>
+            <a href="promocao-2.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');">
+            </a>
+            <a href="loja-1-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=400');">
+            </a>
+            <a href="loja-2-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400');">
+            </a>
         </div>
     </div>
 
     <div class="nav-bottom">
-        <a href="index.html" class="nav-item active"><i>🏠</i>INÍCIO</a>
-        <a href="reels.html" class="nav-item"><i>🎬</i>REELS</a>
-        <button onclick="abrirTarefas()" class="nav-item" style="background:none; border:none; cursor:pointer;"><i>❤️</i>TAREFAS</button>
+        <a href="index.html" class="nav-item active">
+            <i>🏠</i>INÍCIO
+        </a>
+        <a href="noticias.html" class="nav-item">
+            <i>📰</i>NOTÍCIAS
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i>👤</i>PERFIL
+        </a>
     </div>
 
     <div class="ticker-cidade">
@@ -300,10 +294,8 @@
     </div>
 
     <script>
-        // --- 1. LÓGICA DO PWA (Instalação e Notificação) ---
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+        // --- PWA E SERVICE WORKER ---
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 
         let deferredPrompt;
         const pwaModal = document.getElementById('pwa-modal');
@@ -311,22 +303,16 @@
         const btnNotificar = document.getElementById('btn-notificar');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
+            e.preventDefault(); deferredPrompt = e;
             setTimeout(() => { pwaModal.style.display = 'block'; }, 2000);
         });
 
         btnInstalar.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt = null;
-                pwaModal.style.display = 'none';
-            }
+            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; pwaModal.style.display = 'none'; }
         });
 
         btnNotificar.addEventListener('click', () => {
-            Notification.requestPermission();
-            pwaModal.style.display = 'none';
+            Notification.requestPermission(); pwaModal.style.display = 'none';
         });
 
         window.addEventListener('load', () => {
@@ -337,15 +323,9 @@
             }, 5000);
         });
 
-
-        // --- 2. SISTEMA DE TAREFAS E SALDO (GAMIFICAÇÃO) ---
-        
-        // Dados iniciais do usuário (Simulando Banco de Dados Local)
+        // --- SISTEMA DE TAREFAS E SALDO ---
         let usuario = JSON.parse(localStorage.getItem('user_atibaia')) || {
-            logado: false,
-            saldo: 0.00,
-            ultimoCheckin: null,
-            missoesConcluidas: []
+            logado: false, saldo: 0.00, ultimoCheckin: null, missoesConcluidas: []
         };
 
         const overlay = document.getElementById('overlay-tarefas');
@@ -353,78 +333,51 @@
         const dashView = document.getElementById('dashboard-view');
         const saldoEl = document.getElementById('valor-saldo');
 
-        // Lista de Missões
+        // Missões Atualizadas com os novos Links
         const missoes = [
-            { id: 'm1', titulo: 'Visitar os Reels', recompensa: 0.05, link: 'reels.html', icon: '🎬' },
-            { id: 'm2', titulo: 'Ver Categorias de Comida', recompensa: 0.05, link: 'lista.html?cat=comida', icon: '🍕' },
-            { id: 'm3', titulo: 'Conhecer Lojas Novas', recompensa: 0.05, link: 'loja.html?id=1', icon: '🏪' }
+            { id: 'm1', titulo: 'Ler Notícias do Dia', recompensa: 0.05, link: 'noticias.html', icon: '📰' },
+            { id: 'm2', titulo: 'Ver Destaques do Mês', recompensa: 0.05, link: 'promocao-1.html', icon: '⭐' },
+            { id: 'm3', titulo: 'Visitar Burger King', recompensa: 0.10, link: 'loja-1-1.html', icon: '🍔' }
         ];
 
-        function abrirTarefas() {
-            overlay.style.display = 'flex';
-            atualizarTelaTarefas();
-        }
-
-        function fecharTarefas() {
-            overlay.style.display = 'none';
-        }
+        function abrirTarefas() { overlay.style.display = 'flex'; atualizarTelaTarefas(); }
+        function fecharTarefas() { overlay.style.display = 'none'; }
 
         function atualizarTelaTarefas() {
             if (!usuario.logado) {
-                authView.style.display = 'block';
-                dashView.style.display = 'none';
+                authView.style.display = 'block'; dashView.style.display = 'none';
             } else {
-                authView.style.display = 'none';
-                dashView.style.display = 'block';
+                authView.style.display = 'none'; dashView.style.display = 'block';
                 saldoEl.innerText = `R$ ${usuario.saldo.toFixed(2).replace('.', ',')}`;
-                verificarStatusCheckin();
-                renderizarMissoes();
+                verificarStatusCheckin(); renderizarMissoes();
             }
         }
 
         function fazerLogin() {
-            // Simulando login (Futuramente integrar Firebase aqui)
             const email = document.getElementById('email-input').value;
             if(email.length > 3) {
-                usuario.logado = true;
-                usuario.email = email;
-                salvarDados();
-                atualizarTelaTarefas();
-            } else {
-                alert("Digite um e-mail válido");
-            }
+                usuario.logado = true; usuario.email = email; salvarDados(); atualizarTelaTarefas();
+            } else { alert("Digite um e-mail válido"); }
         }
 
-        // --- LÓGICA DO CHECK-IN DIÁRIO ---
         function verificarStatusCheckin() {
             const btn = document.getElementById('btn-checkin');
-            const hoje = new Date().toDateString(); // Pega apenas a data (Dia/Mes/Ano)
-            
+            const hoje = new Date().toDateString();
             if (usuario.ultimoCheckin === hoje) {
-                btn.disabled = true;
-                btn.innerText = "VOLTE AMANHÃ";
-                btn.style.opacity = "0.5";
+                btn.disabled = true; btn.innerText = "VOLTE AMANHÃ"; btn.style.opacity = "0.5";
             } else {
-                btn.disabled = false;
-                btn.innerText = "PEGAR R$ 0,10";
-                btn.style.opacity = "1";
+                btn.disabled = false; btn.innerText = "PEGAR R$ 0,10"; btn.style.opacity = "1";
             }
         }
 
         function fazerCheckin() {
-            const hoje = new Date().toDateString();
-            usuario.saldo += 0.10;
-            usuario.ultimoCheckin = hoje;
-            salvarDados();
-            atualizarTelaTarefas();
-            alert("Parabéns! +R$ 0,10 adicionado.");
+            usuario.saldo += 0.10; usuario.ultimoCheckin = new Date().toDateString();
+            salvarDados(); atualizarTelaTarefas(); alert("Parabéns! +R$ 0,10 adicionado.");
         }
 
-        // --- RASTREADOR DE MISSÕES ---
         function renderizarMissoes() {
             const lista = document.getElementById('lista-missoes');
             lista.innerHTML = '';
-
             missoes.forEach(m => {
                 const feita = usuario.missoesConcluidas.includes(m.id);
                 const classeExtra = feita ? 'missao-concluida' : '';
@@ -439,25 +392,16 @@
                             <span class="missao-recompensa">+ R$ ${m.recompensa.toFixed(2)}</span>
                         </div>
                         <button class="btn-fazer-missao" ${acao}>${textoBtn}</button>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
         function iniciarMissao(id, link, valor) {
-            // Marca a missão como feita, adiciona saldo e redireciona
-            usuario.saldo += valor;
-            usuario.missoesConcluidas.push(id);
-            salvarDados();
-            
-            // Redireciona o usuário para cumprir a tarefa
-            window.location.href = link;
+            usuario.saldo += valor; usuario.missoesConcluidas.push(id);
+            salvarDados(); window.location.href = link;
         }
 
-        function salvarDados() {
-            localStorage.setItem('user_atibaia', JSON.stringify(usuario));
-        }
-
+        function salvarDados() { localStorage.setItem('user_atibaia', JSON.stringify(usuario)); }
     </script>
 </body>
 </html>
