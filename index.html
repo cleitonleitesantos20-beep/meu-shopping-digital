@@ -4,120 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shopping Virtual Atibaia</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2ecc71">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    
     <style>
         :root {
-            --primary: #2ecc71;
-            --dark-bg: #1a2634;
-            --card-bg: #243447;
-            --text-light: #ecf0f1;
-            --cat-food: #e67e22;
-            --cat-fashion: #9b59b6;
-            --cat-tech: #3498db;
-            --cat-service: #e74c3c;
-            --cat-market: #f1c40f;
-            --cat-health: #1abc9c;
+            --primary: #2ecc71; --dark-bg: #1a2634; --card-bg: #243447; --text-light: #ecf0f1;
+            --cat-food: #e67e22; --cat-moda: #9b59b6; --cat-tech: #3498db;
+            --cat-serv: #e74c3c; --cat-merc: #f1c40f; --cat-saud: #1abc9c;
         }
-
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
-        
-        body { 
-            margin: 0; font-family: 'Montserrat', sans-serif; 
-            background: var(--dark-bg); color: var(--text-light); 
-            padding-bottom: 120px; overflow-x: hidden; 
-        }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--text-light); padding-bottom: 110px; }
 
-        /* --- HEADER --- */
+        /* HEADER ADJUST */
         header { 
-            padding: 10px; background: rgba(26, 38, 52, 0.98);
-            backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px; background: rgba(26, 38, 52, 0.98); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: space-between; gap: 5px;
         }
-
-        .header-actions-left { display: flex; gap: 12px; }
-        .action-group { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .header-actions-left { display: flex; gap: 8px; }
+        .action-group { display: flex; flex-direction: column; align-items: center; }
+        .btn-header-small { background: rgba(255,255,255,0.1); border: none; color: var(--primary); font-size: 1.1rem; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
+        .btn-label { font-size: 10px; font-weight: 700; color: var(--primary); }
+        .logo-area h1 { margin: 0; font-size: 11px; font-weight: 900; text-align: center; }
+        .logo-area h1 span { color: var(--primary); display: block; font-size: 13px; }
         
-        .btn-header-small {
-            background: rgba(255,255,255,0.1); border: none; color: var(--primary); 
-            font-size: 1.1rem; width: 35px; height: 35px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        /* BOTÃO CAMPANHA AJUSTADO */
+        .btn-campanha { 
+            background: var(--primary); color: #fff; text-decoration: none; font-size: 9px; 
+            font-weight: 900; padding: 5px 8px; border-radius: 8px; text-align: center; 
+            flex: 1; max-width: 130px; line-height: 1.1; animation: pulse 2s infinite;
         }
-        .btn-label { font-size: 0.45rem; font-weight: 700; text-transform: uppercase; color: var(--primary); }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
-        .logo-area h1 { margin: 0; font-size: 0.75rem; font-weight: 900; text-align: center; line-height: 1; }
-        .logo-area h1 span { color: var(--primary); display: block; font-size: 0.85rem; }
-
-        .btn-campanha {
-            background: var(--primary); color: #fff; text-decoration: none;
-            font-size: 0.5rem; font-weight: 900; padding: 6px 10px;
-            border-radius: 12px; text-align: center; max-width: 100px;
-            line-height: 1.2;
-        }
-
-        /* --- MENU DE NAVEGAÇÃO RÁPIDA --- */
-        .lojas-grid-menu { 
-            display: flex; overflow-x: auto; gap: 10px; padding: 15px;
-            scrollbar-width: none;
-        }
+        /* MENU CATEGORIAS */
+        .lojas-grid-menu { display: flex; overflow-x: auto; gap: 8px; padding: 15px; scrollbar-width: none; }
         .lojas-grid-menu::-webkit-scrollbar { display: none; }
-        
-        .btn-menu-cat { 
-            flex: 0 0 auto; text-decoration: none; color: white; display: flex; 
-            flex-direction: column; align-items: center; background: var(--card-bg); 
-            padding: 10px 15px; border-radius: 12px; font-size: 0.55rem; 
-            font-weight: 900; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05);
-        }
+        .btn-menu-cat { flex: 0 0 auto; text-decoration: none; color: white; background: var(--card-bg); padding: 8px 12px; border-radius: 10px; font-size: 10px; font-weight: 900; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* --- SEÇÕES DE CARROSSEL --- */
-        .section-container { margin-bottom: 25px; }
-        .section-header { padding: 0 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .section-header h2 { font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin: 0; }
+        /* CARROSSEL */
+        .section-container { margin-bottom: 20px; }
+        .section-header { padding: 0 15px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .section-header h2 { font-size: 12px; font-weight: 900; text-transform: uppercase; margin: 0; white-space: nowrap; }
         .line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
-
-        .carousel-wrapper {
-            display: flex; overflow-x: auto; gap: 12px; padding: 5px 20px 15px;
-            scrollbar-width: none;
-        }
+        .carousel-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 5px 15px 15px; scrollbar-width: none; }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
 
-        /* CARD DA LOJA COM LOGO */
-        .card-loja {
-            flex: 0 0 120px; background: var(--card-bg); border-radius: 15px;
-            padding: 12px; text-decoration: none; color: white;
-            display: flex; flex-direction: column; align-items: center;
-            border-bottom: 3px solid var(--primary); transition: transform 0.2s;
-        }
-        .card-loja:active { transform: scale(0.95); }
-        
-        .logo-container {
-            width: 60px; height: 60px; border-radius: 50%; background: #fff;
-            margin-bottom: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-        }
+        /* CARD LOJA */
+        .card-loja { flex: 0 0 110px; background: var(--card-bg); border-radius: 12px; padding: 10px; text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; border-bottom: 3px solid var(--primary); }
+        .logo-container { width: 55px; height: 55px; border-radius: 50%; background: #fff; margin-bottom: 8px; overflow: hidden; }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .card-loja span { font-size: 0.6rem; font-weight: 900; text-align: center; text-transform: uppercase; }
+        .card-loja span { font-size: 9px; font-weight: 800; text-align: center; text-transform: uppercase; line-height: 1; }
 
-        /* --- RODAPÉ --- */
-        .nav-bottom {
-            position: fixed; bottom: 35px; left: 0; width: 100%;
-            background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex; justify-content: center; gap: 60px; padding: 10px 0; z-index: 1001;
-        }
-        .nav-item { text-decoration: none; color: #8899a6; font-size: 0.7rem; font-weight: 700; }
-        .nav-item.active { color: var(--primary); }
-
-        .ticker-cidade {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #000; color: var(--primary); padding: 8px 0;
-            overflow: hidden; white-space: nowrap; z-index: 1002; border-top: 1px solid var(--primary);
-        }
-        .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.7rem; font-weight: 900; }
-
+        /* RODAPÉ E TICKER */
+        .nav-bottom { position: fixed; bottom: 30px; left: 0; width: 100%; background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 40px; padding: 8px 0; z-index: 1001; }
+        .nav-item { text-decoration: none; color: #8899a6; font-size: 11px; font-weight: 700; }
+        .ticker-cidade { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: var(--primary); padding: 6px 0; overflow: hidden; white-space: nowrap; z-index: 1002; border-top: 1px solid var(--primary); font-size: 10px; font-weight: 900; }
+        .ticker-track { display: inline-block; animation: marquee 20s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
     </style>
 </head>
@@ -125,103 +66,22 @@
 
     <header>
         <div class="header-actions-left">
-            <div class="action-group">
-                <button class="btn-header-small" id="btn-instalar">📲</button>
-                <span class="btn-label">Instalar</span>
-            </div>
-            <div class="action-group">
-                <button class="btn-header-small" id="btn-notificar">🔔</button>
-                <span class="btn-label">Alertas</span>
-            </div>
+            <div class="action-group"><button class="btn-header-small">📲</button><span class="btn-label">INSTALAR</span></div>
+            <div class="action-group"><button class="btn-header-small">🔔</button><span class="btn-label">ALERTAS</span></div>
         </div>
-
         <div class="logo-area"><h1>SHOPPING <span>ATIBAIA</span></h1></div>
-        
-        <a href="painel.html" class="btn-campanha">
-            AJUDE UM COMÉRCIO E CONCORRA A PRÊMIOS INCRÍVEIS
-        </a>
+        <a href="#" class="btn-campanha">AJUDE UM COMÉRCIO E CONCORRA A PRÊMIOS INCRÍVEIS</a>
     </header>
 
-    <div class="lojas-grid-menu">
-        <a href="#comida" class="btn-menu-cat">🍔 Comida</a>
-        <a href="#moda" class="btn-menu-cat">👗 Moda</a>
-        <a href="#tech" class="btn-menu-cat">📱 Tech</a>
-        <a href="#servicos" class="btn-menu-cat">⛽ Serviços</a>
-        <a href="#mercado" class="btn-menu-cat">🛒 Mercado</a>
-        <a href="#saude" class="btn-menu-cat">💊 Saúde</a>
-        <a href="#outros" class="btn-menu-cat">➕ Outros</a>
-    </div>
+    <div class="lojas-grid-menu" id="menu-ancoras">
+        </div>
 
-    <div class="section-container" id="comida">
-        <div class="section-header">
-            <h2 style="color: var(--cat-food)">🍔 Comida & Delivery</h2>
-            <div class="line"></div>
-        </div>
-        <div class="carousel-wrapper">
-            <a href="loja-exemplo.html" class="card-loja" style="--primary: var(--cat-food)">
-                <div class="logo-container">
-                    <img src="https://via.placeholder.com/100" alt="Logo Loja">
-                </div>
-                <span>NOME DA LOJA</span>
-            </a>
-            </div>
-    </div>
-
-    <div class="section-container" id="servicos">
-        <div class="section-header">
-            <h2 style="color: var(--cat-service)">⛽ Postos & Serviços</h2>
-            <div class="line"></div>
-        </div>
-        <div class="carousel-wrapper">
-            <a href="#" class="card-loja" style="--primary: var(--cat-service)">
-                <div class="logo-container"><img src="https://via.placeholder.com/100"></div>
-                <span>POSTO CENTRAL</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="section-container" id="mercado">
-        <div class="section-header">
-            <h2 style="color: var(--cat-market)">🛒 Mercados</h2>
-            <div class="line"></div>
-        </div>
-        <div class="carousel-wrapper">
-            <a href="#" class="card-loja" style="--primary: var(--cat-market)">
-                <div class="logo-container"><img src="https://via.placeholder.com/100"></div>
-                <span>SUPERMERCADO X</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="section-container" id="saude">
-        <div class="section-header">
-            <h2 style="color: var(--cat-health)">💊 Saúde & Farmácia</h2>
-            <div class="line"></div>
-        </div>
-        <div class="carousel-wrapper">
-            <a href="#" class="card-loja" style="--primary: var(--cat-health)">
-                <div class="logo-container"><img src="https://via.placeholder.com/100"></div>
-                <span>FARMÁCIA ATB</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="section-container" id="outros">
-        <div class="section-header">
-            <h2 style="color: #95a5a6">➕ Outros Segmentos</h2>
-            <div class="line"></div>
-        </div>
-        <div class="carousel-wrapper">
-            <a href="#" class="card-loja" style="--primary: #95a5a6">
-                <div class="logo-container"><img src="https://via.placeholder.com/100"></div>
-                <span>DIVERSOS</span>
-            </a>
-        </div>
-    </div>
+    <main id="conteudo-lojas">
+        </main>
 
     <div class="nav-bottom">
-        <a href="#" class="nav-item active">🏠 INÍCIO</a>
-        <a href="noticias.html" class="nav-item">📰 NOTÍCIAS</a>
+        <a href="#" class="nav-item">🏠 INÍCIO</a>
+        <a href="#" class="nav-item">📰 NOTÍCIAS</a>
     </div>
 
     <div class="ticker-cidade">
@@ -229,11 +89,58 @@
     </div>
 
     <script>
-        const btnNotificar = document.getElementById('btn-notificar');
-        btnNotificar.addEventListener('click', () => {
-            Notification.requestPermission().then(p => { 
-                if(p === 'granted') alert("Notificações On!"); 
+        // --- CONFIGURAÇÃO DAS LOJAS (AQUI VOCÊ GERENCIA TUDO) ---
+        const categorias = [
+            { id: 'comida', nome: 'Comida & Delivery', icone: '🍔', cor: 'var(--cat-food)', lojas: [
+                { nome: 'Pizzaria Atibaia', img: 'https://via.placeholder.com/100', link: '#' },
+                { nome: 'Burguer Top', img: 'https://via.placeholder.com/100', link: '#' }
+            ]},
+            { id: 'moda', nome: 'Modas & Acessórios', icone: '👗', cor: 'var(--cat-moda)', lojas: [
+                { nome: 'Loja Chic', img: 'https://via.placeholder.com/100', link: '#' }
+            ]},
+            { id: 'tech', nome: 'Tecnologia & Celulares', icone: '📱', cor: 'var(--cat-tech)', lojas: [
+                { nome: 'Atibaia Tech', img: 'https://via.placeholder.com/100', link: '#' }
+            ]},
+            { id: 'servicos', nome: 'Serviços & Postos', icone: '⛽', cor: 'var(--cat-serv)', lojas: [
+                { nome: 'Posto Central', img: 'https://via.placeholder.com/100', link: '#' }
+            ]},
+            { id: 'mercado', nome: 'Mercado', icone: '🛒', cor: 'var(--cat-merc)', lojas: [
+                { nome: 'Mercadão Atibaia', img: 'https://via.placeholder.com/100', link: '#' }
+            ]},
+            { id: 'saude', nome: 'Saúde & Farmácia', icone: '💊', cor: 'var(--cat-saud)', lojas: [
+                { nome: 'Farma Vida', img: 'https://via.placeholder.com/100', link: '#' }
+            ]},
+            { id: 'outros', nome: 'Outros', icone: '➕', cor: '#95a5a6', lojas: [
+                { nome: 'Diversos LTDA', img: 'https://via.placeholder.com/100', link: '#' }
+            ]}
+        ];
+
+        // --- MOTOR DO SITE (NÃO PRECISA MEXER ABAIXO) ---
+        const menuBox = document.getElementById('menu-ancoras');
+        const conteudoBox = document.getElementById('conteudo-lojas');
+
+        categorias.forEach(cat => {
+            // Cria botões do menu
+            menuBox.innerHTML += `<a href="#${cat.id}" class="btn-menu-cat">${cat.icone} ${cat.id}</a>`;
+
+            // Cria Seções e Carrosséis
+            let lojasHTML = '';
+            cat.lojas.forEach(loja => {
+                lojasHTML += `
+                    <a href="${loja.link}" class="card-loja" style="--primary: ${cat.cor}">
+                        <div class="logo-container"><img src="${loja.img}"></div>
+                        <span>${loja.nome}</span>
+                    </a>`;
             });
+
+            conteudoBox.innerHTML += `
+                <section class="section-container" id="${cat.id}">
+                    <div class="section-header">
+                        <h2 style="color: ${cat.cor}">${cat.icone} ${cat.nome}</h2>
+                        <div class="line"></div>
+                    </div>
+                    <div class="carousel-wrapper">${lojasHTML}</div>
+                </section>`;
         });
     </script>
 </body>
