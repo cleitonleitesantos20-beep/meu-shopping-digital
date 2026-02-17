@@ -9,7 +9,6 @@
     <meta name="theme-color" content="#2ecc71">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -18,254 +17,194 @@
             --dark-bg: #1a2634;
             --card-bg: #243447;
             --text-light: #ecf0f1;
-            --gold: #f1c40f;
-            --bg-loja: #34495e; 
             --cat-food: #e67e22;
             --cat-fashion: #9b59b6;
-            --cat-gas: #e74c3c;
             --cat-tech: #3498db;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         
         body { 
             margin: 0; font-family: 'Montserrat', sans-serif; 
             background: var(--dark-bg); color: var(--text-light); 
-            padding-bottom: 140px; 
-            overflow-x: hidden; 
+            padding-bottom: 100px; overflow-x: hidden; 
         }
 
-        /* --- HEADER REESTRUTURADO --- */
+        /* --- HEADER --- */
         header { 
             padding: 10px 15px; background: rgba(26, 38, 52, 0.95);
             backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex; align-items: center; justify-content: space-between;
-            gap: 10px;
         }
 
-        /* Container dos Botões da Esquerda */
-        .header-actions-left {
-            display: flex;
-            gap: 8px;
-        }
-
+        .header-actions-left { display: flex; gap: 8px; }
         .btn-header-small {
-            background: rgba(255,255,255,0.1); border: none;
-            color: var(--primary); font-size: 1.1rem;
-            width: 38px; height: 38px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-            transition: transform 0.2s;
+            background: rgba(255,255,255,0.1); border: none; color: var(--primary); 
+            font-size: 1.1rem; width: 38px; height: 38px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
-        .btn-header-small:active { transform: scale(0.9); }
 
-        .logo-area h1 { 
-            margin: 0; font-size: 0.8rem; font-weight: 900; text-align: center; 
-            line-height: 1;
-        }
+        .logo-area h1 { margin: 0; font-size: 0.8rem; font-weight: 900; text-align: center; line-height: 1; }
         .logo-area h1 span { color: var(--primary); display: block; }
 
-        .btn-sua-loja {
-            background: var(--primary); color: #fff; text-decoration: none;
-            font-size: 0.55rem; 
-            font-weight: 900; padding: 8px 12px;
-            border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        /* --- GRID DE CATEGORIAS --- */
-        .lojas-area { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 15px; 
-            padding: 20px; 
+        /* --- MENU DE CATEGORIAS (GRID SUPERIOR) --- */
+        .lojas-grid-menu { 
+            display: grid; grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; padding: 20px; 
         }
         
-        .btn-loja { 
-            text-decoration: none; color: white; 
-            display: flex; flex-direction: column; align-items: center; 
-            background: var(--card-bg);
-            padding: 15px 5px;
-            border-radius: 15px;
+        .btn-menu-cat { 
+            text-decoration: none; color: white; display: flex; flex-direction: column; 
+            align-items: center; background: var(--card-bg); padding: 12px 5px;
+            border-radius: 12px; font-size: 0.55rem; font-weight: 900; text-transform: uppercase;
             border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-loja:active { transform: scale(0.95); }
-
-        .btn-loja::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--primary); opacity: 0.7;
         }
 
-        .loja-icon { font-size: 1.8rem; margin-bottom: 8px; }
-        .btn-loja span { font-size: 0.6rem; font-weight: 900; text-align: center; line-height: 1.2; text-transform: uppercase; }
-
-        /* --- DESTAQUES --- */
-        .section-label { 
-            padding: 0 20px; font-weight: 700; font-size: 0.75rem; 
-            margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; 
-            color: rgba(255,255,255,0.3); display: flex; justify-content: space-between;
-        }
-
-        .viewport-destaques { width: 100%; overflow: hidden; margin-top: 15px; }
-        .destaques-track {
-            display: flex; width: fit-content; 
-            animation: rotateCarousel 20s linear infinite;
-            gap: 15px; padding: 0 20px;
-        }
+        /* --- SEÇÕES DE CARROSSEL --- */
+        .section-container { margin-bottom: 30px; }
         
-        .destaque-link {
-            flex: 0 0 240px; height: 140px; border-radius: 20px;
-            background-size: cover; background-position: center; position: relative;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: block;
+        .section-header {
+            padding: 0 20px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
+        .section-header h2 { font-size: 0.9rem; font-weight: 900; text-transform: uppercase; margin: 0; }
+        .line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
 
-        /* --- NAV BAR --- */
+        .carousel-wrapper {
+            display: flex; overflow-x: auto; gap: 15px; padding: 5px 20px 15px;
+            scrollbar-width: none; /* Esconde scroll no Firefox */
+        }
+        .carousel-wrapper::-webkit-scrollbar { display: none; } /* Esconde scroll no Chrome */
+
+        /* CARD DA LOJA NO CARROSSEL */
+        .card-loja {
+            flex: 0 0 140px; /* Largura fixa de cada loja */
+            background: var(--card-bg); border-radius: 15px;
+            padding: 15px; text-decoration: none; color: white;
+            display: flex; flex-direction: column; align-items: center;
+            border-bottom: 3px solid var(--primary);
+            transition: transform 0.2s;
+        }
+        .card-loja:active { transform: scale(0.95); }
+        .card-loja .icon { font-size: 2rem; margin-bottom: 10px; }
+        .card-loja span { font-size: 0.65rem; font-weight: 700; text-align: center; }
+
+        /* --- NAV BOTTOM & TICKER --- */
         .nav-bottom {
-            position: fixed; bottom: 40px; left: 0; width: 100%;
+            position: fixed; bottom: 35px; left: 0; width: 100%;
             background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex; justify-content: center; gap: 60px;
-            padding: 10px 0;
-            z-index: 1001;
+            display: flex; justify-content: center; gap: 60px; padding: 10px 0; z-index: 1001;
         }
-        .nav-item { text-decoration: none; color: #8899a6; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; font-weight: 700; }
+        .nav-item { text-decoration: none; color: #8899a6; font-size: 0.7rem; font-weight: 700; text-align: center; }
         .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; font-style: normal; }
 
-        /* --- TICKER --- */
         .ticker-cidade {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #000; color: var(--primary); padding: 10px 0;
-            overflow: hidden; white-space: nowrap; z-index: 1002;
-            border-top: 1px solid var(--primary);
+            background: #000; color: var(--primary); padding: 8px 0;
+            overflow: hidden; white-space: nowrap; z-index: 1002; border-top: 1px solid var(--primary);
         }
-        .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.8rem; font-weight: 900; }
+        .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.7rem; font-weight: 900; }
 
         @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
-        @keyframes rotateCarousel { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
     </style>
 </head>
 <body>
 
     <header>
         <div class="header-actions-left">
-            <button class="btn-header-small" id="btn-instalar" title="Instalar App">
-                📲
-            </button>
-            <button class="btn-header-small" id="btn-notificar" title="Notificações">
-                🔔
-            </button>
+            <button class="btn-header-small" id="btn-instalar">📲</button>
+            <button class="btn-header-small" id="btn-notificar">🔔</button>
         </div>
-
         <div class="logo-area"><h1>SHOPPING <span>ATIBAIA</span></h1></div>
-        
-        <a href="painel.html" class="btn-sua-loja">LOJA DIGITAL</a>
+        <a href="painel.html" style="background:var(--primary); color:#fff; padding:8px 12px; border-radius:50px; font-size:0.55rem; font-weight:900; text-decoration:none;">LOJA DIGITAL</a>
     </header>
 
-    <div class="lojas-area">
-        <a href="lista-comida.html" class="btn-loja" style="--primary: var(--cat-food)">
-            <div class="loja-icon">🍔</div>
-            <span>COMIDA &<br>DELIVERY</span>
-        </a>
-        <a href="lista-roupas.html" class="btn-loja" style="--primary: var(--cat-fashion)">
-            <div class="loja-icon">👗</div>
-            <span>ROUPAS &<br>MODA</span>
-        </a>
-        <a href="lista-acessorios.html" class="btn-loja" style="--primary: var(--cat-fashion)">
-            <div class="loja-icon">👜</div>
-            <span>ACESSÓRIOS</span>
-        </a>
-        <a href="lista-calcados.html" class="btn-loja" style="--primary: var(--cat-fashion)">
-            <div class="loja-icon">👟</div>
-            <span>CALÇADOS</span>
-        </a>
-        <a href="lista-postos.html" class="btn-loja" style="--primary: var(--cat-gas)">
-            <div class="loja-icon">⛽</div>
-            <span>POSTOS &<br>SERVIÇOS</span>
-        </a>
-        <a href="lista-eletronicos.html" class="btn-loja" style="--primary: var(--cat-tech)">
-            <div class="loja-icon">📱</div>
-            <span>CELULARES</span>
-        </a>
-        <a href="lista-farmacia.html" class="btn-loja" style="--primary: #fff">
-            <div class="loja-icon">💊</div>
-            <span>FARMÁCIA</span>
-        </a>
-        <a href="lista-mercado.html" class="btn-loja" style="--primary: #f1c40f">
-            <div class="loja-icon">🛒</div>
-            <span>MERCADO</span>
-        </a>
-        <a href="lista-outros.html" class="btn-loja" style="--primary: #95a5a6">
-            <div class="loja-icon">➕</div>
-            <span>OUTROS</span>
-        </a>
+    <div class="lojas-grid-menu">
+        <a href="#comida" class="btn-menu-cat">🍔 Comida</a>
+        <a href="#moda" class="btn-menu-cat">👗 Moda</a>
+        <a href="#tech" class="btn-menu-cat">📱 Tech</a>
+        <a href="#servicos" class="btn-menu-cat">⛽ Serviços</a>
+        <a href="#mercado" class="btn-menu-cat">🛒 Mercado</a>
+        <a href="#farmacia" class="btn-menu-cat">💊 Saúde</a>
     </div>
 
-    <div class="section-label">
-        <span>DESTAQUES DO MÊS</span>
-        <span style="font-size:0.6rem; opacity:0.5">VER TODOS</span>
+    <div class="section-container" id="comida">
+        <div class="section-header">
+            <h2 style="color: var(--cat-food)">🍔 Comida & Delivery</h2>
+            <div class="line"></div>
+        </div>
+        <div class="carousel-wrapper">
+            <a href="loja-pizzaria.html" class="card-loja" style="--primary: var(--cat-food)">
+                <div class="icon">🍕</div>
+                <span>PIZZARIA X</span>
+            </a>
+            <a href="loja-burger.html" class="card-loja" style="--primary: var(--cat-food)">
+                <div class="icon">🍔</div>
+                <span>BURGER HOUSE</span>
+            </a>
+            <a href="loja-japones.html" class="card-loja" style="--primary: var(--cat-food)">
+                <div class="icon">🍣</div>
+                <span>SUSHI TOP</span>
+            </a>
+            </div>
     </div>
-    <div class="viewport-destaques">
-        <div class="destaques-track">
-            <a href="promocao-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400');"></a>
-            <a href="promocao-2.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400');"></a>
-            <a href="loja-1-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=400');"></a>
-            <a href="loja-2-1.html" class="destaque-link" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400');"></a>
+
+    <div class="section-container" id="moda">
+        <div class="section-header">
+            <h2 style="color: var(--cat-fashion)">👗 Roupas & Acessórios</h2>
+            <div class="line"></div>
+        </div>
+        <div class="carousel-wrapper">
+            <a href="loja-fashion.html" class="card-loja" style="--primary: var(--cat-fashion)">
+                <div class="icon">👗</div>
+                <span>BOUTIQUE ATB</span>
+            </a>
+            <a href="loja-shoes.html" class="card-loja" style="--primary: var(--cat-fashion)">
+                <div class="icon">👟</div>
+                <span>TÊNIS & CIA</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section-container" id="tech">
+        <div class="section-header">
+            <h2 style="color: var(--cat-tech)">📱 Tecnologia</h2>
+            <div class="line"></div>
+        </div>
+        <div class="carousel-wrapper">
+            <a href="loja-celular.html" class="card-loja" style="--primary: var(--cat-tech)">
+                <div class="icon">📱</div>
+                <span>REI DO CELULAR</span>
+            </a>
+            <a href="loja-games.html" class="card-loja" style="--primary: var(--cat-tech)">
+                <div class="icon">🎮</div>
+                <span>ATIBAIA GAMES</span>
+            </a>
         </div>
     </div>
 
     <div class="nav-bottom">
-        <a href="index.html" class="nav-item active">
-            <i>🏠</i>INÍCIO
-        </a>
-        <a href="noticias.html" class="nav-item">
-            <i>📰</i>NOTÍCIAS
-        </a>
+        <a href="#" class="nav-item active">🏠 INÍCIO</a>
+        <a href="noticias.html" class="nav-item">📰 NOTÍCIAS</a>
     </div>
 
     <div class="ticker-cidade">
-        <div class="ticker-track">
-            🍓 MORANGO DIRETO DO PRODUTOR DE ATIBAIA • 🎡 VISITE O TELEFÉRICO • 🏬 ANUNCIE SUA LOJA AQUI •
-        </div>
+        <div class="ticker-track">🍓 MORANGO DE ATIBAIA • 🎡 VISITE O TELEFÉRICO • 🏬 ANUNCIE SUA LOJA AQUI •</div>
     </div>
 
     <script>
-        // --- LOGICA PWA ---
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
-
-        let deferredPrompt;
+        // Lógica PWA simples
         const btnInstalar = document.getElementById('btn-instalar');
         const btnNotificar = document.getElementById('btn-notificar');
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault(); 
-            deferredPrompt = e;
-        });
-
-        btnInstalar.addEventListener('click', async () => {
-            if (deferredPrompt) { 
-                deferredPrompt.prompt(); 
-                const { outcome } = await deferredPrompt.userChoice;
-                deferredPrompt = null; 
-            } else {
-                alert("Para instalar, procure a opção 'Adicionar à Tela de Início' no menu do seu navegador.");
-            }
-        });
-
         btnNotificar.addEventListener('click', () => {
-            Notification.requestPermission().then(permission => {
-                if (permission === 'granted') {
-                    alert("Notificações ativadas!");
-                } else {
-                    alert("As notificações estão bloqueadas no seu navegador.");
-                }
+            Notification.requestPermission().then(p => { 
+                if(p === 'granted') alert("Notificações On!"); 
             });
         });
+
+        // O navegador gerencia o scroll suave por causa do CSS: scroll-behavior: smooth;
     </script>
 </body>
 </html>
