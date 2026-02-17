@@ -44,20 +44,17 @@
             display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
         }
 
-        .btn-tarefas-topo {
+        /* Botão Novo - Menu App */
+        .btn-menu-app {
             justify-self: start;
             background: rgba(255,255,255,0.1); border: none;
             color: var(--primary); font-size: 1.2rem;
             width: 40px; height: 40px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; position: relative;
+            transition: background 0.3s;
         }
-        
-        .badge-tarefa {
-            position: absolute; top: -5px; right: -5px;
-            background: red; width: 10px; height: 10px; border-radius: 50%;
-            display: block;
-        }
+        .btn-menu-app:active { background: rgba(255,255,255,0.2); }
 
         .logo-area h1 { margin: 0; font-size: 0.9rem; font-weight: 900; text-align: center; }
         .logo-area h1 span { color: var(--primary); }
@@ -65,7 +62,7 @@
         .btn-sua-loja {
             justify-self: end;
             background: var(--primary); color: #fff; text-decoration: none;
-            font-size: 0.55rem; /* Levemente reduzido para caber o texto maior */
+            font-size: 0.55rem; 
             font-weight: 900; padding: 8px 10px;
             border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
             white-space: nowrap;
@@ -144,85 +141,73 @@
         }
         .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.8rem; font-weight: 900; }
 
-        /* MODAIS E SALDO (Missões removidas do CSS) */
-        #overlay-tarefas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 38, 52, 0.98); z-index: 3000; display: none; flex-direction: column; overflow-y: auto; animation: fadeIn 0.3s ease; }
-        .tarefas-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); background: #151f2b; }
-        .btn-fechar-tarefas { font-size: 1.5rem; color: white; background: none; border: none; }
-        #auth-view { padding: 40px 20px; text-align: center; display: none; }
-        .input-auth { width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #444; background: #243447; color: white; }
-        .btn-entrar { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 900; cursor: pointer; }
-        #dashboard-view { padding: 20px; display: none; }
-        .saldo-card { background: linear-gradient(45deg, #2ecc71, #27ae60); padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); }
-        .saldo-valor { font-size: 2.5rem; font-weight: 900; display: block; }
-        .checkin-container { background: var(--card-bg); padding: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; border: 1px solid var(--gold); }
-        .checkin-info h4 { margin: 0; color: var(--gold); } .checkin-info p { margin: 5px 0 0; font-size: 0.7rem; color: #aaa; }
-        .btn-checkin { background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 900; font-size: 0.7rem; cursor: pointer; }
-        .btn-checkin:disabled { background: #555; color: #888; cursor: not-allowed; }
+        /* --- MENU PWA (APP/NOTIFICAÇÃO) --- */
+        /* Oculto por padrão, aparece ao clicar no botão */
+        #pwa-menu { 
+            position: fixed; top: 70px; left: 20px; width: 250px;
+            background: var(--card-bg); padding: 20px; 
+            border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
+            z-index: 2000; border: 1px solid rgba(255,255,255,0.1); 
+            display: none; animation: slideDown 0.3s ease;
+        }
         
-        /* PWA */
-        #pwa-modal { position: fixed; bottom: 110px; left: 20px; right: 20px; background: var(--card-bg); padding: 20px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); z-index: 2000; border: 1px solid var(--primary); display: none; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .pwa-content h3 { margin: 0 0 5px 0; font-size: 0.9rem; color: var(--primary); } .pwa-content p { margin: 0 0 15px 0; font-size: 0.7rem; opacity: 0.8; line-height: 1.4; }
-        .pwa-actions { display: flex; gap: 10px; } .btn-pwa { flex: 1; padding: 12px; border: none; border-radius: 12px; font-family: 'Montserrat'; font-weight: 900; font-size: 0.65rem; cursor: pointer; text-align: center; text-decoration: none; }
-        .btn-instalar { background: var(--primary); color: white; } .btn-notificar { background: white; color: var(--dark-bg); }
+        /* Setinha do balão */
+        #pwa-menu::before {
+            content: ''; position: absolute; top: -10px; left: 15px;
+            border-width: 0 10px 10px 10px; border-style: solid;
+            border-color: transparent transparent var(--card-bg) transparent;
+        }
+
+        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .pwa-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .pwa-header h3 { margin: 0; font-size: 0.9rem; color: var(--primary); }
+        .btn-fechar-menu { background: none; border: none; color: #aaa; font-size: 1.2rem; cursor: pointer; }
+
+        .pwa-item { display: block; width: 100%; margin-bottom: 10px; }
+        .btn-pwa { 
+            width: 100%; padding: 12px; border: none; border-radius: 10px; 
+            font-family: 'Montserrat'; font-weight: 900; font-size: 0.7rem; 
+            cursor: pointer; text-align: left; display: flex; align-items: center; gap: 10px;
+        }
+        .btn-instalar { background: var(--primary); color: white; } 
+        .btn-notificar { background: rgba(255,255,255,0.1); color: white; }
 
         @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         @keyframes rotateCarousel { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
     </style>
 </head>
 <body>
 
     <header>
-        <button class="btn-tarefas-topo" onclick="abrirTarefas()">
-            📋
-            </button>
+        <button class="btn-menu-app" onclick="toggleMenuApp()">
+            📲
+        </button>
 
         <div class="logo-area"><h1>SHOPPING <span>ATIBAIA</span></h1></div>
         
         <a href="painel.html" class="btn-sua-loja">Loja Digital Atibaia</a>
     </header>
 
-    <div id="overlay-tarefas">
-        <div class="tarefas-header">
-            <h2 style="margin:0; font-size:1.2rem;">Sua Conta</h2>
-            <button class="btn-fechar-tarefas" onclick="fecharTarefas()">✕</button>
+    <div id="pwa-menu">
+        <div class="pwa-header">
+            <h3>Menu do Aplicativo</h3>
+            <button class="btn-fechar-menu" onclick="toggleMenuApp()">✕</button>
         </div>
-        <div id="auth-view">
-            <h3 style="color:var(--primary)">Acesse para ganhar!</h3>
-            <p style="font-size:0.8rem; margin-bottom:20px;">Crie sua conta grátis para acumular saldo.</p>
-            <input type="email" id="email-input" placeholder="Seu E-mail" class="input-auth">
-            <input type="password" placeholder="Senha" class="input-auth">
-            <button class="btn-entrar" onclick="fazerLogin()">ACESSAR AGORA</button>
+        <div class="pwa-item">
+            <button class="btn-pwa btn-instalar" id="btn-instalar">
+                ⬇️ INSTALAR APLICATIVO
+            </button>
         </div>
-        <div id="dashboard-view">
-            <div class="saldo-card">
-                <span class="saldo-label">Seu Saldo Atual</span>
-                <span class="saldo-valor" id="valor-saldo">R$ 0,00</span>
-                <p style="font-size:0.7rem; margin:5px 0 0;">Use em lojas parceiras</p>
-            </div>
-            
-            <div class="checkin-container">
-                <div class="checkin-info">
-                    <h4>💎 Bônus Diário</h4>
-                    <p>Entre todo dia e ganhe!</p>
-                </div>
-                <button class="btn-checkin" id="btn-checkin" onclick="fazerCheckin()">+ R$ 0,10</button>
-            </div>
-
-            </div>
-    </div>
-
-    <div id="pwa-modal">
-        <div class="pwa-content">
-            <h3>Fique por dentro! 🚀</h3>
-            <p>Receba ofertas exclusivas de Atibaia e instale nosso App para acesso rápido.</p>
+        <div class="pwa-item">
+            <button class="btn-pwa btn-notificar" id="btn-notificar">
+                🔔 ATIVAR NOTIFICAÇÕES
+            </button>
         </div>
-        <div class="pwa-actions">
-            <button class="btn-pwa btn-notificar" id="btn-notificar">🔔 NOTIFICAR</button>
-            <button class="btn-pwa btn-instalar" id="btn-instalar">📲 INSTALAR APP</button>
-        </div>
+        <p style="font-size:0.65rem; color:#aaa; margin:10px 0 0; text-align:center;">
+            Tenha acesso rápido e receba novidades.
+        </p>
     </div>
 
     <div class="lojas-area">
@@ -293,94 +278,59 @@
     </div>
 
     <script>
+        // --- FUNÇÕES DO MENU APP (NOVO) ---
+        const menuApp = document.getElementById('pwa-menu');
+
+        function toggleMenuApp() {
+            if (menuApp.style.display === 'block') {
+                menuApp.style.display = 'none';
+            } else {
+                menuApp.style.display = 'block';
+            }
+        }
+
         // --- PWA E SERVICE WORKER ---
         if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 
         let deferredPrompt;
-        const pwaModal = document.getElementById('pwa-modal');
         const btnInstalar = document.getElementById('btn-instalar');
         const btnNotificar = document.getElementById('btn-notificar');
 
+        // Captura o evento de instalação, mas NÃO mostra nada automaticamente
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault(); deferredPrompt = e;
-            setTimeout(() => { pwaModal.style.display = 'block'; }, 2000);
+            e.preventDefault(); 
+            deferredPrompt = e;
+            // O botão ficará funcional, mas o menu só abre se o usuário clicar no topo
         });
 
         btnInstalar.addEventListener('click', async () => {
-            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; pwaModal.style.display = 'none'; }
+            if (deferredPrompt) { 
+                deferredPrompt.prompt(); 
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null; 
+                menuApp.style.display = 'none'; // Fecha o menu após clicar
+            } else {
+                alert("Para instalar, use a opção 'Adicionar à Tela de Início' do seu navegador.");
+            }
         });
 
         btnNotificar.addEventListener('click', () => {
-            Notification.requestPermission(); pwaModal.style.display = 'none';
-        });
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                if (pwaModal.style.display !== 'block' && Notification.permission === 'default') {
-                    pwaModal.style.display = 'block';
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    alert("Notificações ativadas com sucesso!");
                 }
-            }, 5000);
+                menuApp.style.display = 'none';
+            });
         });
 
-        // --- SISTEMA DE CONTA E SALDO (Sem Missões) ---
-        let usuario = JSON.parse(localStorage.getItem('user_atibaia')) || {
-            logado: false, 
-            saldo: 0.00, 
-            ultimoCheckin: null
-        };
-
-        const overlay = document.getElementById('overlay-tarefas');
-        const authView = document.getElementById('auth-view');
-        const dashView = document.getElementById('dashboard-view');
-        const saldoEl = document.getElementById('valor-saldo');
-
-        function abrirTarefas() { overlay.style.display = 'flex'; atualizarTelaTarefas(); }
-        function fecharTarefas() { overlay.style.display = 'none'; }
-
-        function atualizarTelaTarefas() {
-            if (!usuario.logado) {
-                authView.style.display = 'block'; dashView.style.display = 'none';
-            } else {
-                authView.style.display = 'none'; dashView.style.display = 'block';
-                saldoEl.innerText = `R$ ${usuario.saldo.toFixed(2).replace('.', ',')}`;
-                verificarStatusCheckin();
+        // Fechar o menu se clicar fora dele
+        window.addEventListener('click', (e) => {
+            const btnMenu = document.querySelector('.btn-menu-app');
+            if (e.target !== menuApp && !menuApp.contains(e.target) && e.target !== btnMenu) {
+                menuApp.style.display = 'none';
             }
-        }
+        });
 
-        function fazerLogin() {
-            const email = document.getElementById('email-input').value;
-            if(email.length > 3) {
-                usuario.logado = true; usuario.email = email; salvarDados(); atualizarTelaTarefas();
-            } else { alert("Digite um e-mail válido"); }
-        }
-
-        function verificarStatusCheckin() {
-            const btn = document.getElementById('btn-checkin');
-            const hoje = new Date().toDateString();
-            if (usuario.ultimoCheckin === hoje) {
-                btn.disabled = true; btn.innerText = "VOLTE AMANHÃ"; btn.style.opacity = "0.5";
-            } else {
-                btn.disabled = false; btn.innerText = "VER ANÚNCIO (+R$ 0,10)"; btn.style.opacity = "1";
-            }
-        }
-
-        function fazerCheckin() {
-            const aceitou = confirm("Assista a um anúncio rápido de nosso patrocinador para ganhar sua recompensa!");
-            
-            if (aceitou) {
-                window.open('https://www.google.com', '_blank');
-                
-                setTimeout(() => {
-                    usuario.saldo += 0.10; 
-                    usuario.ultimoCheckin = new Date().toDateString();
-                    salvarDados(); 
-                    atualizarTelaTarefas(); 
-                    alert("Obrigado! +R$ 0,10 adicionado.");
-                }, 1000);
-            }
-        }
-
-        function salvarDados() { localStorage.setItem('user_atibaia', JSON.stringify(usuario)); }
     </script>
 </body>
 </html>
