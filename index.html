@@ -20,7 +20,6 @@
             --text-light: #ecf0f1;
             --gold: #f1c40f;
             --bg-loja: #34495e; 
-            /* Cores para categorias */
             --cat-food: #e67e22;
             --cat-fashion: #9b59b6;
             --cat-gas: #e74c3c;
@@ -36,34 +35,41 @@
             overflow-x: hidden; 
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER REESTRUTURADO --- */
         header { 
-            padding: 15px 20px; background: rgba(26, 38, 52, 0.95);
+            padding: 10px 15px; background: rgba(26, 38, 52, 0.95);
             backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 10px;
         }
 
-        /* Botão Novo - Menu App */
-        .btn-menu-app {
-            justify-self: start;
+        /* Container dos Botões da Esquerda */
+        .header-actions-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-header-small {
             background: rgba(255,255,255,0.1); border: none;
-            color: var(--primary); font-size: 1.2rem;
-            width: 40px; height: 40px; border-radius: 12px;
+            color: var(--primary); font-size: 1.1rem;
+            width: 38px; height: 38px; border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; position: relative;
-            transition: background 0.3s;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .btn-menu-app:active { background: rgba(255,255,255,0.2); }
+        .btn-header-small:active { transform: scale(0.9); }
 
-        .logo-area h1 { margin: 0; font-size: 0.9rem; font-weight: 900; text-align: center; }
-        .logo-area h1 span { color: var(--primary); }
+        .logo-area h1 { 
+            margin: 0; font-size: 0.8rem; font-weight: 900; text-align: center; 
+            line-height: 1;
+        }
+        .logo-area h1 span { color: var(--primary); display: block; }
 
         .btn-sua-loja {
-            justify-self: end;
             background: var(--primary); color: #fff; text-decoration: none;
             font-size: 0.55rem; 
-            font-weight: 900; padding: 8px 10px;
+            font-weight: 900; padding: 8px 12px;
             border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
             white-space: nowrap;
         }
@@ -94,9 +100,7 @@
             background: var(--primary); opacity: 0.7;
         }
 
-        .loja-icon {
-            font-size: 1.8rem; margin-bottom: 8px;
-        }
+        .loja-icon { font-size: 1.8rem; margin-bottom: 8px; }
         .btn-loja span { font-size: 0.6rem; font-weight: 900; text-align: center; line-height: 1.2; text-transform: uppercase; }
 
         /* --- DESTAQUES --- */
@@ -141,38 +145,6 @@
         }
         .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.8rem; font-weight: 900; }
 
-        /* --- MENU PWA (APP/NOTIFICAÇÃO) --- */
-        /* Oculto por padrão, aparece ao clicar no botão */
-        #pwa-menu { 
-            position: fixed; top: 70px; left: 20px; width: 250px;
-            background: var(--card-bg); padding: 20px; 
-            border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
-            z-index: 2000; border: 1px solid rgba(255,255,255,0.1); 
-            display: none; animation: slideDown 0.3s ease;
-        }
-        
-        /* Setinha do balão */
-        #pwa-menu::before {
-            content: ''; position: absolute; top: -10px; left: 15px;
-            border-width: 0 10px 10px 10px; border-style: solid;
-            border-color: transparent transparent var(--card-bg) transparent;
-        }
-
-        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .pwa-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .pwa-header h3 { margin: 0; font-size: 0.9rem; color: var(--primary); }
-        .btn-fechar-menu { background: none; border: none; color: #aaa; font-size: 1.2rem; cursor: pointer; }
-
-        .pwa-item { display: block; width: 100%; margin-bottom: 10px; }
-        .btn-pwa { 
-            width: 100%; padding: 12px; border: none; border-radius: 10px; 
-            font-family: 'Montserrat'; font-weight: 900; font-size: 0.7rem; 
-            cursor: pointer; text-align: left; display: flex; align-items: center; gap: 10px;
-        }
-        .btn-instalar { background: var(--primary); color: white; } 
-        .btn-notificar { background: rgba(255,255,255,0.1); color: white; }
-
         @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         @keyframes rotateCarousel { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -181,34 +153,19 @@
 <body>
 
     <header>
-        <button class="btn-menu-app" onclick="toggleMenuApp()">
-            📲
-        </button>
+        <div class="header-actions-left">
+            <button class="btn-header-small" id="btn-instalar" title="Instalar App">
+                📲
+            </button>
+            <button class="btn-header-small" id="btn-notificar" title="Notificações">
+                🔔
+            </button>
+        </div>
 
         <div class="logo-area"><h1>SHOPPING <span>ATIBAIA</span></h1></div>
         
-        <a href="painel.html" class="btn-sua-loja">Loja Digital Atibaia</a>
+        <a href="painel.html" class="btn-sua-loja">LOJA DIGITAL</a>
     </header>
-
-    <div id="pwa-menu">
-        <div class="pwa-header">
-            <h3>Menu do Aplicativo</h3>
-            <button class="btn-fechar-menu" onclick="toggleMenuApp()">✕</button>
-        </div>
-        <div class="pwa-item">
-            <button class="btn-pwa btn-instalar" id="btn-instalar">
-                ⬇️ INSTALAR APLICATIVO
-            </button>
-        </div>
-        <div class="pwa-item">
-            <button class="btn-pwa btn-notificar" id="btn-notificar">
-                🔔 ATIVAR NOTIFICAÇÕES
-            </button>
-        </div>
-        <p style="font-size:0.65rem; color:#aaa; margin:10px 0 0; text-align:center;">
-            Tenha acesso rápido e receba novidades.
-        </p>
-    </div>
 
     <div class="lojas-area">
         <a href="lista-comida.html" class="btn-loja" style="--primary: var(--cat-food)">
@@ -278,29 +235,16 @@
     </div>
 
     <script>
-        // --- FUNÇÕES DO MENU APP (NOVO) ---
-        const menuApp = document.getElementById('pwa-menu');
-
-        function toggleMenuApp() {
-            if (menuApp.style.display === 'block') {
-                menuApp.style.display = 'none';
-            } else {
-                menuApp.style.display = 'block';
-            }
-        }
-
-        // --- PWA E SERVICE WORKER ---
+        // --- LOGICA PWA ---
         if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 
         let deferredPrompt;
         const btnInstalar = document.getElementById('btn-instalar');
         const btnNotificar = document.getElementById('btn-notificar');
 
-        // Captura o evento de instalação, mas NÃO mostra nada automaticamente
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault(); 
             deferredPrompt = e;
-            // O botão ficará funcional, mas o menu só abre se o usuário clicar no topo
         });
 
         btnInstalar.addEventListener('click', async () => {
@@ -308,29 +252,20 @@
                 deferredPrompt.prompt(); 
                 const { outcome } = await deferredPrompt.userChoice;
                 deferredPrompt = null; 
-                menuApp.style.display = 'none'; // Fecha o menu após clicar
             } else {
-                alert("Para instalar, use a opção 'Adicionar à Tela de Início' do seu navegador.");
+                alert("Para instalar, procure a opção 'Adicionar à Tela de Início' no menu do seu navegador.");
             }
         });
 
         btnNotificar.addEventListener('click', () => {
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
-                    alert("Notificações ativadas com sucesso!");
+                    alert("Notificações ativadas!");
+                } else {
+                    alert("As notificações estão bloqueadas no seu navegador.");
                 }
-                menuApp.style.display = 'none';
             });
         });
-
-        // Fechar o menu se clicar fora dele
-        window.addEventListener('click', (e) => {
-            const btnMenu = document.querySelector('.btn-menu-app');
-            if (e.target !== menuApp && !menuApp.contains(e.target) && e.target !== btnMenu) {
-                menuApp.style.display = 'none';
-            }
-        });
-
     </script>
 </body>
 </html>
