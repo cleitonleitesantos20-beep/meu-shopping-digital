@@ -65,11 +65,13 @@
         .btn-sua-loja {
             justify-self: end;
             background: var(--primary); color: #fff; text-decoration: none;
-            font-size: 0.6rem; font-weight: 900; padding: 8px 12px;
-            border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 0.55rem; /* Levemente reduzido para caber o texto maior */
+            font-weight: 900; padding: 8px 10px;
+            border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
-        /* --- GRID DE CATEGORIAS (ANTIGO LOJAS) --- */
+        /* --- GRID DE CATEGORIAS --- */
         .lojas-area { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -90,7 +92,6 @@
         }
         .btn-loja:active { transform: scale(0.95); }
 
-        /* Pequena barra colorida no topo do card da categoria */
         .btn-loja::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
             background: var(--primary); opacity: 0.7;
@@ -122,11 +123,11 @@
             display: block;
         }
 
-        /* --- NAV BAR (SEM PERFIL) --- */
+        /* --- NAV BAR --- */
         .nav-bottom {
             position: fixed; bottom: 40px; left: 0; width: 100%;
             background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex; justify-content: center; gap: 60px; /* Aumentei o gap pois tem menos itens */
+            display: flex; justify-content: center; gap: 60px;
             padding: 10px 0;
             z-index: 1001;
         }
@@ -143,7 +144,7 @@
         }
         .ticker-track { display: inline-block; animation: marquee 20s linear infinite; font-size: 0.8rem; font-weight: 900; }
 
-        /* MODAIS E TAREFAS */
+        /* MODAIS E SALDO (Missões removidas do CSS) */
         #overlay-tarefas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 38, 52, 0.98); z-index: 3000; display: none; flex-direction: column; overflow-y: auto; animation: fadeIn 0.3s ease; }
         .tarefas-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); background: #151f2b; }
         .btn-fechar-tarefas { font-size: 1.5rem; color: white; background: none; border: none; }
@@ -157,18 +158,6 @@
         .checkin-info h4 { margin: 0; color: var(--gold); } .checkin-info p { margin: 5px 0 0; font-size: 0.7rem; color: #aaa; }
         .btn-checkin { background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 900; font-size: 0.7rem; cursor: pointer; }
         .btn-checkin:disabled { background: #555; color: #888; cursor: not-allowed; }
-        
-        .section-tarefas-title {
-            background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px;
-            font-size: 0.8rem; font-weight: 900; color: #ccc; margin-bottom: 15px;
-            display: flex; align-items: center; gap: 10px;
-        }
-
-        .missao-item { background: var(--card-bg); padding: 15px; border-radius: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,0.05); }
-        .missao-icon { font-size: 1.5rem; } .missao-detalhes { flex: 1; } .missao-titulo { font-weight: 700; font-size: 0.9rem; display: block; }
-        .missao-recompensa { color: var(--primary); font-size: 0.8rem; font-weight: 900; }
-        .btn-fazer-missao { background: rgba(255,255,255,0.1); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; }
-        .missao-concluida { opacity: 0.5; } .missao-concluida .btn-fazer-missao { background: var(--primary); content: "FEITO"; pointer-events: none; }
         
         /* PWA */
         #pwa-modal { position: fixed; bottom: 110px; left: 20px; right: 20px; background: var(--card-bg); padding: 20px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); z-index: 2000; border: 1px solid var(--primary); display: none; animation: slideUp 0.5s ease; }
@@ -188,22 +177,21 @@
     <header>
         <button class="btn-tarefas-topo" onclick="abrirTarefas()">
             📋
-            <span class="badge-tarefa"></span>
-        </button>
+            </button>
 
         <div class="logo-area"><h1>SHOPPING <span>ATIBAIA</span></h1></div>
         
-        <a href="painel.html" class="btn-sua-loja">Sua Loja</a>
+        <a href="painel.html" class="btn-sua-loja">Loja Digital Atibaia</a>
     </header>
 
     <div id="overlay-tarefas">
         <div class="tarefas-header">
-            <h2 style="margin:0; font-size:1.2rem;">Central de Prêmios</h2>
+            <h2 style="margin:0; font-size:1.2rem;">Sua Conta</h2>
             <button class="btn-fechar-tarefas" onclick="fecharTarefas()">✕</button>
         </div>
         <div id="auth-view">
             <h3 style="color:var(--primary)">Acesse para ganhar!</h3>
-            <p style="font-size:0.8rem; margin-bottom:20px;">Crie sua conta grátis para acumular cashback e completar missões.</p>
+            <p style="font-size:0.8rem; margin-bottom:20px;">Crie sua conta grátis para acumular saldo.</p>
             <input type="email" id="email-input" placeholder="Seu E-mail" class="input-auth">
             <input type="password" placeholder="Senha" class="input-auth">
             <button class="btn-entrar" onclick="fazerLogin()">ACESSAR AGORA</button>
@@ -217,22 +205,13 @@
             
             <div class="checkin-container">
                 <div class="checkin-info">
-                    <h4>💎 Check-in Diário</h4>
-                    <p>Veja 1 anúncio e ganhe!</p>
+                    <h4>💎 Bônus Diário</h4>
+                    <p>Entre todo dia e ganhe!</p>
                 </div>
                 <button class="btn-checkin" id="btn-checkin" onclick="fazerCheckin()">+ R$ 0,10</button>
             </div>
 
-            <div class="section-tarefas-title">
-                📝 TAREFAS SEMANAIS (Reseta Domingo)
             </div>
-            
-            <div id="lista-missoes"></div>
-            
-            <p style="text-align:center; font-size:0.6rem; color:#555; margin-top:20px;">
-                As missões resetam automaticamente toda semana.
-            </p>
-        </div>
     </div>
 
     <div id="pwa-modal">
@@ -341,53 +320,19 @@
                     pwaModal.style.display = 'block';
                 }
             }, 5000);
-            
-            // Verifica o reset semanal ao carregar
-            verificarResetSemanal();
         });
 
-        // --- SISTEMA DE TAREFAS E SALDO ---
+        // --- SISTEMA DE CONTA E SALDO (Sem Missões) ---
         let usuario = JSON.parse(localStorage.getItem('user_atibaia')) || {
             logado: false, 
             saldo: 0.00, 
-            ultimoCheckin: null, 
-            missoesConcluidas: [],
-            ultimaSemanaReset: null // Para controlar o reset semanal
+            ultimoCheckin: null
         };
 
         const overlay = document.getElementById('overlay-tarefas');
         const authView = document.getElementById('auth-view');
         const dashView = document.getElementById('dashboard-view');
         const saldoEl = document.getElementById('valor-saldo');
-
-        // Missões conforme solicitado: Links externos e visitar páginas
-        const missoes = [
-            { id: 'm_insta', titulo: 'Seguir no Instagram', recompensa: 0.05, link: 'https://instagram.com', icon: '📸', externo: true },
-            { id: 'm_face', titulo: 'Curtir no Facebook', recompensa: 0.05, link: 'https://facebook.com', icon: '👍', externo: true },
-            { id: 'm_pag1', titulo: 'Ver Ofertas de Comida', recompensa: 0.05, link: 'lista-comida.html', icon: '🍔', externo: false },
-            { id: 'm_pag2', titulo: 'Ver Ofertas de Roupas', recompensa: 0.05, link: 'lista-roupas.html', icon: '👗', externo: false },
-            { id: 'm_pag3', titulo: 'Conhecer os Destaques', recompensa: 0.05, link: 'promocao-1.html', icon: '⭐', externo: false }
-        ];
-
-        // Função auxiliar para pegar o número da semana atual
-        function getNumeroSemana() {
-            const date = new Date();
-            const oneJan = new Date(date.getFullYear(), 0, 1);
-            const numberOfDays = Math.floor((date - oneJan) / (24 * 60 * 60 * 1000));
-            return Math.ceil((date.getDay() + 1 + numberOfDays) / 7);
-        }
-
-        function verificarResetSemanal() {
-            const semanaAtual = getNumeroSemana();
-            
-            // Se não tem registro ou a semana mudou, reseta as missões
-            if (usuario.ultimaSemanaReset !== semanaAtual) {
-                usuario.missoesConcluidas = []; // Limpa missões
-                usuario.ultimaSemanaReset = semanaAtual; // Atualiza a semana
-                salvarDados();
-                console.log("Missões resetadas para a nova semana!");
-            }
-        }
 
         function abrirTarefas() { overlay.style.display = 'flex'; atualizarTelaTarefas(); }
         function fecharTarefas() { overlay.style.display = 'none'; }
@@ -398,7 +343,7 @@
             } else {
                 authView.style.display = 'none'; dashView.style.display = 'block';
                 saldoEl.innerText = `R$ ${usuario.saldo.toFixed(2).replace('.', ',')}`;
-                verificarStatusCheckin(); renderizarMissoes();
+                verificarStatusCheckin();
             }
         }
 
@@ -420,62 +365,18 @@
         }
 
         function fazerCheckin() {
-            // Simulando a "Propaganda ao Clicar"
             const aceitou = confirm("Assista a um anúncio rápido de nosso patrocinador para ganhar sua recompensa!");
             
             if (aceitou) {
-                // Abre o link da propaganda (exemplo: Google) em nova aba
                 window.open('https://www.google.com', '_blank');
                 
-                // Dá o saldo
                 setTimeout(() => {
                     usuario.saldo += 0.10; 
                     usuario.ultimoCheckin = new Date().toDateString();
                     salvarDados(); 
                     atualizarTelaTarefas(); 
                     alert("Obrigado! +R$ 0,10 adicionado.");
-                }, 1000); // Pequeno delay para simular processamento
-            }
-        }
-
-        function renderizarMissoes() {
-            const lista = document.getElementById('lista-missoes');
-            lista.innerHTML = '';
-            missoes.forEach(m => {
-                const feita = usuario.missoesConcluidas.includes(m.id);
-                const classeExtra = feita ? 'missao-concluida' : '';
-                const textoBtn = feita ? 'FEITO' : 'IR';
-                
-                // Se for externo, abre nova aba. Se for interno, redireciona.
-                const target = m.externo ? '_blank' : '_self';
-                
-                // Ao clicar, chama iniciarMissao
-                const acao = feita ? '' : `onclick="iniciarMissao('${m.id}', '${m.link}', ${m.recompensa}, ${m.externo})"`;
-
-                lista.innerHTML += `
-                    <div class="missao-item ${classeExtra}">
-                        <div class="missao-icon">${m.icon}</div>
-                        <div class="missao-detalhes">
-                            <span class="missao-titulo">${m.titulo}</span>
-                            <span class="missao-recompensa">+ R$ ${m.recompensa.toFixed(2)}</span>
-                        </div>
-                        <button class="btn-fazer-missao" ${acao}>${textoBtn}</button>
-                    </div>`;
-            });
-        }
-
-        function iniciarMissao(id, link, valor, externo) {
-            // Adiciona saldo e marca como feita
-            usuario.saldo += valor; 
-            usuario.missoesConcluidas.push(id);
-            salvarDados(); 
-            
-            // Redireciona
-            if(externo) {
-                window.open(link, '_blank');
-                atualizarTelaTarefas(); // Atualiza a tela pois o usuário continua aqui
-            } else {
-                window.location.href = link;
+                }, 1000);
             }
         }
 
