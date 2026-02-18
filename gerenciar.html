@@ -3,79 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Controle - Centro Comercial</title>
+    <title>Acesso Restrito - Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Montserrat', sans-serif; background: #1a2634; color: white; padding: 20px; }
+        body { font-family: 'Montserrat', sans-serif; background: #1a2634; color: white; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        #login-screen { text-align: center; background: #243447; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 350px; }
+        #admin-content { display: none; width: 100%; max-width: 600px; align-self: flex-start; margin-top: 40px; }
+        
         .card-gestao { background: #243447; padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid #2ecc71; }
-        h2 { font-size: 1.2rem; margin-top: 0; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #1a2634; color: white; }
-        button { background: #2ecc71; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; }
-        .lista-posts { margin-top: 30px; }
-        .post-item { background: #000; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-excluir { background: #e74c3c; width: auto; padding: 5px 15px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #1a2634; color: white; border: 1px solid rgba(255,255,255,0.1); }
+        button { background: #2ecc71; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        button:active { transform: scale(0.98); }
+        
+        .post-item { background: #000; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        .btn-excluir { background: #e74c3c; width: auto; padding: 8px 15px; font-size: 11px; }
+        .btn-logout { background: transparent; border: 1px solid #8899a6; color: #8899a6; margin-top: 20px; padding: 10px; }
     </style>
 </head>
 <body>
 
-    <h1>PAINEL DO ADMINISTRADOR</h1>
-
-    <div class="card-gestao">
-        <h2>Postar Nova Promoção/Notícia</h2>
-        <input type="text" id="titulo" placeholder="Nome da Loja ou Título">
-        <textarea id="texto" placeholder="Descrição da Promoção..." rows="3"></textarea>
-        <input type="text" id="imagem" placeholder="URL da Imagem ou Vídeo (link)">
-        <button onclick="salvarPost()">PUBLICA E NOTIFICAR AGORA 🚀</button>
+    <div id="login-screen">
+        <h1 style="font-size: 1.2rem; margin-bottom: 20px;">🔐 ACESSO RESTRITO</h1>
+        <input type="password" id="senha-input" placeholder="Digite sua senha admin">
+        <button onclick="verificarSenha()">ENTRAR NO PAINEL</button>
     </div>
 
-    <div class="lista-posts" id="lista-posts">
+    <div id="admin-content">
+        <h1 style="text-align: center; font-size: 1.5rem;">PAINEL ADMINISTRADOR</h1>
+        
+        <div class="card-gestao">
+            <h2>Postar Nova Promoção/Notícia</h2>
+            <input type="text" id="titulo" placeholder="Nome da Loja ou Título">
+            <textarea id="texto" placeholder="Descrição da Promoção..." rows="3"></textarea>
+            <input type="text" id="imagem" placeholder="Link da Imagem (Ex: https://...)">
+            <button onclick="salvarPost()">PUBLICA E NOTIFICAR 🚀</button>
         </div>
 
+        <div id="lista-posts"></div>
+        
+        <button class="btn-logout" onclick="logout()">SAIR DO PAINEL</button>
+    </div>
+
     <script>
+        const SENHA_MESTRA = "atibaia2026"; // Mude sua senha aqui!
+
+        function verificarSenha() {
+            const senhaDigitada = document.getElementById('senha-input').value;
+            if(senhaDigitada === SENHA_MESTRA) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                document.body.style.alignItems = 'flex-start';
+                carregarPainel();
+            } else {
+                alert("Senha incorreta!");
+            }
+        }
+
         function salvarPost() {
             const titulo = document.getElementById('titulo').value;
             const texto = document.getElementById('texto').value;
             const imagem = document.getElementById('imagem').value;
 
-            if(!titulo || !texto) return alert("Preencha os campos!");
+            if(!titulo || !texto) return alert("Preencha os campos obrigatórios!");
 
             const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
-            const novoPost = { id: Date.now(), titulo, texto, imagem: imagem || 'https://picsum.photos/800/1200' };
+            const novoPost = { 
+                id: Date.now(), 
+                titulo, 
+                texto, 
+                imagem: imagem || 'https://picsum.photos/seed/'+Date.now()+'/800/1200' 
+            };
             
             noticias.unshift(novoPost);
             localStorage.setItem('noticias', JSON.stringify(noticias));
 
-            // DISPARAR NOTIFICAÇÃO
+            // Disparar Notificação Real
             if (Notification.permission === 'granted') {
                 new Notification("Centro Comercial Digital", {
-                    body: `Nova oferta de ${titulo}: ${texto}`,
+                    body: `Nova oferta de ${titulo}!`,
                     icon: 'https://picsum.photos/100'
                 });
             }
 
-            alert("Publicado com Sucesso!");
-            location.reload();
-        }
-
-        function apagarPost(id) {
-            let noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
-            noticias = noticias.filter(n => n.id !== id);
-            localStorage.setItem('noticias', JSON.stringify(noticias));
-            location.reload();
+            alert("Publicado com sucesso!");
+            limparCampos();
+            carregarPainel();
         }
 
         function carregarPainel() {
             const lista = document.getElementById('lista-posts');
             const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
-            lista.innerHTML = "<h2>Suas Postagens Ativas:</h2>" + noticias.map(n => `
-                <div class="post-item">
-                    <span><b>${n.titulo}</b></span>
-                    <button class="btn-excluir" onclick="apagarPost(${n.id})">APAGAR</button>
-                </div>
-            `).join('');
+            
+            lista.innerHTML = "<h2 style='font-size: 1rem; margin: 20px 0;'>Postagens Ativas:</h2>";
+            
+            noticias.forEach(n => {
+                lista.innerHTML += `
+                    <div class="post-item">
+                        <span><b>${n.titulo}</b></span>
+                        <button class="btn-excluir" onclick="apagarPost(${n.id})">APAGAR</button>
+                    </div>
+                `;
+            });
         }
 
-        window.onload = carregarPainel;
+        function apagarPost(id) {
+            if(confirm("Deseja mesmo apagar esta notícia?")) {
+                let noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
+                noticias = noticias.filter(n => n.id !== id);
+                localStorage.setItem('noticias', JSON.stringify(noticias));
+                carregarPainel();
+            }
+        }
+
+        function limparCampos() {
+            document.getElementById('titulo').value = '';
+            document.getElementById('texto').value = '';
+            document.getElementById('imagem').value = '';
+        }
+
+        function logout() {
+            location.reload();
+        }
     </script>
 </body>
 </html>
