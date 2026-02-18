@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimento Apoie Atibaia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #2ecc71; --dark: #1a2634; --accent: #f1c40f; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: #f4f7f6; color: #333; line-height: 1.6; }
+        
+        /* HEADER EMOCIONAL */
+        .hero-campanha { 
+            background: linear-gradient(rgba(26, 38, 52, 0.9), rgba(26, 38, 52, 0.9)), url('https://picsum.photos/id/357/800/600');
+            background-size: cover; background-position: center;
+            color: white; padding: 60px 20px; text-align: center;
+        }
+        .hero-campanha h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 10px; }
+        .hero-campanha p { font-size: 1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+        /* CARDS DE INFORMAÇÃO */
+        .container { padding: 30px 20px; max-width: 800px; margin: 0 auto; }
+        
+        .info-card { 
+            background: white; padding: 25px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px;
+            border-top: 5px solid var(--primary);
+        }
+        .info-card h2 { color: var(--dark); font-size: 1.2rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        
+        .premio-destaque {
+            background: var(--dark); color: white; padding: 30px; border-radius: 20px; text-align: center;
+            margin: 30px 0; border: 2px dashed var(--accent);
+        }
+        .premio-destaque span { color: var(--accent); font-size: 2.5rem; font-weight: 900; display: block; }
+        .premio-destaque small { text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; }
+
+        /* BOTÃO DE AÇÃO */
+        .btn-contribuir {
+            display: block; background: var(--primary); color: white; text-decoration: none;
+            text-align: center; padding: 20px; border-radius: 15px; font-weight: 900;
+            font-size: 1.1rem; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+            transition: 0.3s;
+        }
+        .btn-contribuir:active { transform: scale(0.95); }
+
+        .footer-apoio { text-align: center; font-size: 0.8rem; color: #888; margin-top: 40px; padding-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+    <section class="hero-campanha">
+        <h1>MOVIMENTO APOIE O COMÉRCIO LOCAL</h1>
+        <p>Ao contribuir com o fortalecimento das lojas de Atibaia e região, você mantém empregos e ajuda a economia da nossa cidade a crescer.</p>
+    </section>
+
+    <div class="container">
+        <div class="info-card">
+            <h2>🤝 Como funciona?</h2>
+            <p>Nosso centro comercial digital destina parte das arrecadações para campanhas de marketing e melhorias para os pequenos lojistas da região. Sua ajuda é fundamental para mantermos o projeto vivo.</p>
+        </div>
+
+        <div class="info-card">
+            <h2>🎁 Reconhecimento aos Apoiadores</h2>
+            <p>Como forma de gratidão, todos os apoiadores do mês participam automaticamente do nosso programa de premiação cultural e incentivo.</p>
+            
+            <div class="premio-destaque">
+                <small>Premiação deste Mês</small>
+                <span>R$ 1.500,00</span>
+                <p>Em vales-compras nas lojas parceiras!</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>📅 Próximo Sorteio</h2>
+            <p>A apuração acontece sempre no último sábado de cada mês via Loteria Federal, garantindo total transparência para quem ajuda nossa cidade.</p>
+        </div>
+
+        <a href="https://SEU-SITE-DE-RIFAS-AQUI.com" class="btn-contribuir">
+            QUERO AJUDAR E PARTICIPAR ➔
+        </a>
+
+        <div class="footer-apoio">
+            <p>Centro Comercial Digital de Atibaia e Região<br>
+            Apoiar o comércio local é um ato de cidadania.</p>
+            <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: bold;">Voltar para o Início</a>
+        </div>
+    </div>
+
+</body>
+</html>
