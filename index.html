@@ -15,52 +15,55 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--text-light); padding-bottom: 110px; overflow-x: hidden; }
 
-        /* HEADER */
+        /* HEADER AMPLIADO */
         header { 
-            padding: 10px; background: rgba(26, 38, 52, 0.98); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: space-between; gap: 5px;
+            padding: 12px 10px; background: rgba(26, 38, 52, 0.98); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary);
+            display: flex; align-items: center; justify-content: space-between; gap: 8px;
         }
-        .header-actions-left { display: flex; gap: 8px; }
+        .header-actions-left { display: flex; gap: 10px; }
         .action-group { display: flex; flex-direction: column; align-items: center; }
-        .btn-header-small { background: rgba(255,255,255,0.1); border: none; color: var(--primary); font-size: 1.1rem; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
-        .btn-label { font-size: 8px; font-weight: 700; color: var(--primary); margin-top: 2px; text-transform: uppercase; }
+        .btn-header-small { background: rgba(255,255,255,0.1); border: none; color: var(--primary); font-size: 1.2rem; width: 38px; height: 38px; border-radius: 10px; cursor: pointer; }
+        .btn-label { font-size: 8px; font-weight: 900; color: var(--primary); margin-top: 3px; text-transform: uppercase; }
         
-        .logo-area h1 { margin: 0; font-size: 9px; font-weight: 900; text-align: center; line-height: 1; text-transform: uppercase; }
-        .logo-area h1 span { color: var(--primary); display: block; font-size: 11px; letter-spacing: 0.5px; }
-        .logo-area h1 .sub { color: #8899a6; font-size: 7px; font-weight: 400; display: block; margin-top: 2px; }
+        /* LOGO MAIOR */
+        .logo-area { flex: 2; }
+        .logo-area h1 { margin: 0; font-size: 12px; font-weight: 900; text-align: center; line-height: 1.1; text-transform: uppercase; letter-spacing: -0.5px; }
+        .logo-area h1 span { color: var(--primary); display: block; font-size: 16px; letter-spacing: 1px; }
+        .logo-area h1 .sub { color: #8899a6; font-size: 9px; font-weight: 700; display: block; margin-top: 3px; }
         
+        /* BOTÃO CAMPANHA REESTILIZADO */
         .btn-campanha { 
-            background: var(--primary); color: #fff; text-decoration: none; font-size: 8px; 
-            font-weight: 900; padding: 6px 8px; border-radius: 8px; text-align: center; 
-            flex: 1; max-width: 110px; line-height: 1.1; animation: pulse 2s infinite;
+            background: #fff; color: #000; text-decoration: none; font-size: 8px; 
+            font-weight: 900; padding: 6px; border-radius: 8px; text-align: center; 
+            flex: 1.5; max-width: 140px; line-height: 1.2; border: 1px solid var(--primary);
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(0.96); } 100% { transform: scale(1); } }
-
+        .btn-campanha b { color: var(--primary); display: block; font-size: 10px; text-decoration: underline; margin-top: 2px; }
+        
         /* MENU CATEGORIAS */
-        .lojas-grid-menu { display: flex; overflow-x: auto; gap: 8px; padding: 15px; scrollbar-width: none; }
+        .lojas-grid-menu { display: flex; overflow-x: auto; gap: 10px; padding: 20px 15px; scrollbar-width: none; }
         .lojas-grid-menu::-webkit-scrollbar { display: none; }
-        .btn-menu-cat { flex: 0 0 auto; text-decoration: none; color: white; background: var(--card-bg); padding: 8px 12px; border-radius: 10px; font-size: 10px; font-weight: 900; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
+        .btn-menu-cat { flex: 0 0 auto; text-decoration: none; color: white; background: var(--card-bg); padding: 10px 15px; border-radius: 12px; font-size: 11px; font-weight: 900; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        /* SEÇÕES E CARROSSEL */
-        .section-container { margin-bottom: 25px; }
-        .section-header { padding: 0 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .section-header h2 { font-size: 11px; font-weight: 900; text-transform: uppercase; margin: 0; white-space: nowrap; }
-        .line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
-        .carousel-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 0 15px 10px; scrollbar-width: none; }
+        /* CARROSSEL E SEÇÕES */
+        .section-container { margin-bottom: 30px; }
+        .section-header { padding: 0 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+        .section-header h2 { font-size: 14px; font-weight: 900; text-transform: uppercase; margin: 0; white-space: nowrap; }
+        .line { flex: 1; height: 2px; background: rgba(255,255,255,0.05); }
+        .carousel-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px 15px; scrollbar-width: none; }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
 
-        /* CARD LOJA */
-        .card-loja { flex: 0 0 105px; background: var(--card-bg); border-radius: 12px; padding: 12px 8px; text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; border-bottom: 3px solid var(--primary); transition: 0.2s; }
+        /* CARD LOJA AMPLIADO */
+        .card-loja { flex: 0 0 140px; background: var(--card-bg); border-radius: 18px; padding: 15px 10px; text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; border-bottom: 4px solid var(--primary); transition: 0.3s; box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
         .card-loja:active { transform: scale(0.95); }
-        .logo-container { width: 55px; height: 55px; border-radius: 50%; background: #fff; margin-bottom: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,0.1); }
+        .logo-container { width: 85px; height: 85px; border-radius: 50%; background: #fff; margin-bottom: 12px; overflow: hidden; border: 3px solid rgba(255,255,255,0.1); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
-        .card-loja span { font-size: 9px; font-weight: 800; text-align: center; text-transform: uppercase; line-height: 1.1; }
+        .card-loja span { font-size: 11px; font-weight: 900; text-align: center; text-transform: uppercase; line-height: 1.2; height: 28px; display: flex; align-items: center; }
 
-        /* RODAPÉ E TICKER */
-        .nav-bottom { position: fixed; bottom: 30px; left: 0; width: 100%; background: var(--dark-bg); border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 50px; padding: 10px 0; z-index: 1001; }
-        .nav-item { text-decoration: none; color: #8899a6; font-size: 11px; font-weight: 800; }
-        .ticker-cidade { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: var(--primary); padding: 7px 0; overflow: hidden; white-space: nowrap; z-index: 1002; border-top: 1px solid var(--primary); font-size: 10px; font-weight: 900; }
+        /* NAV E TICKER */
+        .nav-bottom { position: fixed; bottom: 30px; left: 0; width: 100%; background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 60px; padding: 15px 0; z-index: 1001; }
+        .nav-item { text-decoration: none; color: #8899a6; font-size: 13px; font-weight: 900; }
+        .ticker-cidade { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: var(--primary); padding: 8px 0; overflow: hidden; white-space: nowrap; z-index: 1002; border-top: 1px solid var(--primary); font-size: 11px; font-weight: 900; }
         .ticker-track { display: inline-block; animation: marquee 25s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
     </style>
@@ -78,7 +81,10 @@
                 <span class="sub">ATIBAIA E REGIÃO</span>
             </h1>
         </div>
-        <a href="premios.html" class="btn-campanha">AJUDE UM COMÉRCIO E CONCORRA A PRÊMIOS INCRÍVEIS</a>
+        <a href="premios.html" class="btn-campanha">
+            Ajude um comércio e tenha chance de concorrer a prêmios incríveis
+            <b>CLIQUE AQUI</b>
+        </a>
     </header>
 
     <div class="lojas-grid-menu" id="menu-ancoras"></div>
@@ -91,39 +97,31 @@
     </div>
 
     <div class="ticker-cidade">
-        <div class="ticker-track">🚀 BEM-VINDO AO CENTRO COMERCIAL DIGITAL • 🛍️ APOIE O COMÉRCIO DE ATIBAIA E REGIÃO • 📢 ANUNCIE SUA LOJA AQUI •</div>
+        <div class="ticker-track">🍓 MORANGO DE ATIBAIA • 🛍️ AS MELHORES LOJAS DA REGIÃO NO CENTRO COMERCIAL DIGITAL • 🚀 ANUNCIE SUA EMPRESA CONOSCO •</div>
     </div>
 
     <script>
-        // --- CONFIGURAÇÃO DAS LOJAS ---
-        // Para cada loja, mude o 'link' para a página que você criou para ela.
+        // --- MOTOR DE SIMULAÇÃO DE IMAGENS ---
+        // Agora as imagens usam cores diferentes para facilitar a visualização
         const categorias = [
             { id: 'destaques', nome: '⭐ Lojas em Destaque', cor: 'var(--cat-destaque)', lojas: [
-                { nome: 'Pizzaria Premium', img: 'https://via.placeholder.com/100', link: 'loja-pizzaria.html' },
-                { nome: 'Smart Tech', img: 'https://via.placeholder.com/100', link: 'loja-tech.html' },
-                { nome: 'Boutique Fashion', img: 'https://via.placeholder.com/100', link: 'loja-moda.html' }
+                { nome: 'Pizzaria Premium', img: 'https://picsum.photos/seed/pizza/200', link: 'loja-pizzaria.html' },
+                { nome: 'Smart Tech', img: 'https://picsum.photos/seed/tech/200', link: 'loja-tech.html' },
+                { nome: 'Boutique Fashion', img: 'https://picsum.photos/seed/moda/200', link: 'loja-moda.html' }
             ]},
             { id: 'comida', nome: '🍔 Comida & Delivery', cor: 'var(--cat-food)', lojas: [
-                { nome: 'Burguer House', img: 'https://via.placeholder.com/100', link: 'burguer.html' },
-                { nome: 'Sushi Atibaia', img: 'https://via.placeholder.com/100', link: 'sushi.html' }
+                { nome: 'Burguer House', img: 'https://picsum.photos/seed/burguer/200', link: 'burguer.html' },
+                { nome: 'Sushi Atibaia', img: 'https://picsum.photos/seed/sushi/200', link: 'sushi.html' }
             ]},
             { id: 'moda', nome: '👗 Modas & Acessórios', cor: 'var(--cat-moda)', lojas: [
-                { nome: 'Loja Chic', img: 'https://via.placeholder.com/100', link: 'chic.html' }
+                { nome: 'Loja Chic', img: 'https://picsum.photos/seed/vestido/200', link: 'chic.html' },
+                { nome: 'Calçados Atibaia', img: 'https://picsum.photos/seed/shoe/200', link: 'shoes.html' }
             ]},
             { id: 'tech', nome: '📱 Tecnologia', cor: 'var(--cat-tech)', lojas: [
-                { nome: 'Rei do Celular', img: 'https://via.placeholder.com/100', link: 'celulares.html' }
+                { nome: 'Rei do Celular', img: 'https://picsum.photos/seed/phone/200', link: 'celulares.html' }
             ]},
             { id: 'servicos', nome: '⛽ Serviços', cor: 'var(--cat-serv)', lojas: [
-                { nome: 'Mecânica X', img: 'https://via.placeholder.com/100', link: 'mecanica.html' }
-            ]},
-            { id: 'mercado', nome: '🛒 Mercado', cor: 'var(--cat-merc)', lojas: [
-                { nome: 'Mercadão Central', img: 'https://via.placeholder.com/100', link: 'mercado.html' }
-            ]},
-            { id: 'saude', nome: '💊 Saúde', cor: 'var(--cat-saud)', lojas: [
-                { nome: 'Farmácia Popular', img: 'https://via.placeholder.com/100', link: 'farma.html' }
-            ]},
-            { id: 'outros', nome: '➕ Outros', cor: '#95a5a6', lojas: [
-                { nome: 'Loja Variedades', img: 'https://via.placeholder.com/100', link: 'variedades.html' }
+                { nome: 'Posto Central', img: 'https://picsum.photos/seed/gas/200', link: 'posto.html' }
             ]}
         ];
 
