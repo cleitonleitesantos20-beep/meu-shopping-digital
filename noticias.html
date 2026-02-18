@@ -3,123 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Reels Atibaia - Ofertas em Vídeo</title>
+    <title>Centro Comercial - Reels & Notícias</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2ecc71;
-            --text-light: #ecf0f1;
-        }
-
+        :root { --primary: #2ecc71; --text-light: #ecf0f1; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body, html { 
-            margin: 0; padding: 0; 
-            width: 100%; height: 100%; 
-            background: #000; 
-            font-family: 'Montserrat', sans-serif;
-            overflow: hidden; 
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Montserrat', sans-serif; overflow: hidden; }
 
-        /* Container de scroll vertical travado (Snap) */
+        /* REELS CONTAINER */
         .reels-container {
             width: 100%; height: 100vh;
             scroll-snap-type: y mandatory;
-            overflow-y: scroll;
-            scrollbar-width: none;
+            overflow-y: scroll; scrollbar-width: none;
         }
         .reels-container::-webkit-scrollbar { display: none; }
 
         .video-slide {
             width: 100%; height: 100vh;
             scroll-snap-align: start;
-            position: relative;
-            background: #111;
+            position: relative; background: #000;
             display: flex; align-items: center; justify-content: center;
         }
 
-        .video-placeholder {
-            width: 100%; height: 100%;
-            object-fit: cover;
+        .content-media { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+
+        /* GRADIENTE PARA LEITURA */
+        .overlay-gradient {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            z-index: 5;
         }
 
-        /* --- INFO SOBRE O VÍDEO --- */
         .overlay-info {
-            position: absolute; bottom: 100px; left: 20px;
+            position: absolute; bottom: 100px; left: 20px; right: 20px;
             color: white; z-index: 10;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        .loja-nome { 
-            font-weight: 900; font-size: 1.1rem; 
-            margin-bottom: 8px; display: flex; 
-            align-items: center; gap: 10px; 
-        }
-        .loja-nome img { 
-            width: 35px; height: 35px; 
-            border-radius: 50%; border: 2px solid var(--primary); 
-        }
-        .video-desc { font-size: 0.85rem; opacity: 0.9; max-width: 280px; line-height: 1.4; }
+        .loja-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .loja-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; }
+        .loja-nome { font-weight: 900; font-size: 1.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        
+        .video-desc { font-size: 0.95rem; line-height: 1.5; color: rgba(255,255,255,0.9); font-weight: 400; }
 
-        /* Botão de Voltar */
         .btn-voltar {
-            position: absolute; top: 20px; left: 20px;
-            z-index: 20; color: white; text-decoration: none; 
-            font-size: 1.8rem; font-weight: bold;
+            position: absolute; top: 25px; left: 20px; z-index: 20;
+            background: rgba(0,0,0,0.5); width: 40px; height: 40px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; font-size: 1.5rem;
         }
 
-        /* --- NAV BAR FIXA (SEM BOTÃO DE COMERCIANTE) --- */
+        /* NAV BAR LIMPA */
         .nav-bottom {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(15px);
-            display: flex; justify-content: space-around; padding: 15px 0;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
+            display: flex; justify-content: space-around; padding: 15px 0 25px;
             z-index: 100; border-top: 1px solid rgba(255,255,255,0.1);
         }
-        .nav-item { 
-            text-decoration: none; color: #8899a6; 
-            display: flex; flex-direction: column; 
-            align-items: center; font-size: 0.7rem; font-weight: 700; 
-        }
+        .nav-item { text-decoration: none; color: #8899a6; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 800; }
         .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; font-style: normal; }
-
+        .nav-item i { font-size: 20px; margin-bottom: 4px; font-style: normal; }
     </style>
 </head>
 <body>
 
     <a href="index.html" class="btn-voltar">‹</a>
 
-    <div class="reels-container">
-        
-        <div class="video-slide">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800" class="video-placeholder">
-            <div class="overlay-info">
-                <div class="loja-nome">
-                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=50">
-                    Pizzaria Lucas
-                </div>
-                <p class="video-desc">Nossa promoção de Terça-feira! Pizza de Mussarela por R$ 39,90 🍕✨</p>
-            </div>
+    <div class="reels-container" id="reels-display">
         </div>
-
-        <div class="video-slide">
-            <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800" class="video-placeholder">
-            <div class="overlay-info">
-                <div class="loja-nome">
-                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=50">
-                    Burger da Montanha
-                </div>
-                <p class="video-desc">O artesanal mais suculento de Atibaia. Vem provar! 🍔🔥</p>
-            </div>
-        </div>
-
-    </div>
 
     <div class="nav-bottom">
         <a href="index.html" class="nav-item"><i>🏠</i>INÍCIO</a>
-        <a href="reels.html" class="nav-item active"><i>🎬</i>REELS</a>
-        <a href="#" class="nav-item"><i>❤️</i>FAVORITOS</a>
+        <a href="noticias.html" class="nav-item active"><i>🎬</i>REELS</a>
+        <a href="gerenciar.html" class="nav-item"><i>⚙️</i>POSTAR</a>
     </div>
 
+    <script>
+        function carregarReels() {
+            const container = document.getElementById('reels-display');
+            const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
+            
+            if (noticias.length === 0) {
+                container.innerHTML = `<div class="video-slide"><p style="color:white">Nenhuma promoção no momento.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = noticias.map(n => `
+                <div class="video-slide">
+                    <img src="${n.imagem}" class="content-media">
+                    <div class="overlay-gradient"></div>
+                    <div class="overlay-info">
+                        <div class="loja-header">
+                            <img src="https://picsum.photos/50" class="loja-logo">
+                            <span class="loja-nome">${n.titulo}</span>
+                        </div>
+                        <p class="video-desc">${n.texto}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Solicitar permissão para notificações
+        if (Notification.permission !== 'granted') {
+            Notification.requestPermission();
+        }
+
+        window.onload = carregarReels;
+    </script>
 </body>
 </html>
