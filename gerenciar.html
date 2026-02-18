@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle - Centro Comercial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #1a2634; color: white; padding: 20px; }
+        .card-gestao { background: #243447; padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid #2ecc71; }
+        h2 { font-size: 1.2rem; margin-top: 0; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #1a2634; color: white; }
+        button { background: #2ecc71; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; }
+        .lista-posts { margin-top: 30px; }
+        .post-item { background: #000; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-excluir { background: #e74c3c; width: auto; padding: 5px 15px; }
+    </style>
+</head>
+<body>
+
+    <h1>PAINEL DO ADMINISTRADOR</h1>
+
+    <div class="card-gestao">
+        <h2>Postar Nova Promoção/Notícia</h2>
+        <input type="text" id="titulo" placeholder="Nome da Loja ou Título">
+        <textarea id="texto" placeholder="Descrição da Promoção..." rows="3"></textarea>
+        <input type="text" id="imagem" placeholder="URL da Imagem ou Vídeo (link)">
+        <button onclick="salvarPost()">PUBLICA E NOTIFICAR AGORA 🚀</button>
+    </div>
+
+    <div class="lista-posts" id="lista-posts">
+        </div>
+
+    <script>
+        function salvarPost() {
+            const titulo = document.getElementById('titulo').value;
+            const texto = document.getElementById('texto').value;
+            const imagem = document.getElementById('imagem').value;
+
+            if(!titulo || !texto) return alert("Preencha os campos!");
+
+            const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
+            const novoPost = { id: Date.now(), titulo, texto, imagem: imagem || 'https://picsum.photos/800/1200' };
+            
+            noticias.unshift(novoPost);
+            localStorage.setItem('noticias', JSON.stringify(noticias));
+
+            // DISPARAR NOTIFICAÇÃO
+            if (Notification.permission === 'granted') {
+                new Notification("Centro Comercial Digital", {
+                    body: `Nova oferta de ${titulo}: ${texto}`,
+                    icon: 'https://picsum.photos/100'
+                });
+            }
+
+            alert("Publicado com Sucesso!");
+            location.reload();
+        }
+
+        function apagarPost(id) {
+            let noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
+            noticias = noticias.filter(n => n.id !== id);
+            localStorage.setItem('noticias', JSON.stringify(noticias));
+            location.reload();
+        }
+
+        function carregarPainel() {
+            const lista = document.getElementById('lista-posts');
+            const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
+            lista.innerHTML = "<h2>Suas Postagens Ativas:</h2>" + noticias.map(n => `
+                <div class="post-item">
+                    <span><b>${n.titulo}</b></span>
+                    <button class="btn-excluir" onclick="apagarPost(${n.id})">APAGAR</button>
+                </div>
+            `).join('');
+        }
+
+        window.onload = carregarPainel;
+    </script>
+</body>
+</html>
