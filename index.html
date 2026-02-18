@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Centro Comercial Digital</title>
+    <title>Centro Comercial Digital - Atibaia</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -24,17 +24,18 @@
         .header-actions-left { display: flex; gap: 8px; }
         .action-group { display: flex; flex-direction: column; align-items: center; }
         .btn-header-small { background: rgba(255,255,255,0.1); border: none; color: var(--primary); font-size: 1.1rem; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
-        .btn-label { font-size: 9px; font-weight: 700; color: var(--primary); margin-top: 2px; }
+        .btn-label { font-size: 8px; font-weight: 700; color: var(--primary); margin-top: 2px; text-transform: uppercase; }
         
-        .logo-area h1 { margin: 0; font-size: 10px; font-weight: 900; text-align: center; line-height: 1; }
-        .logo-area h1 span { color: var(--primary); display: block; font-size: 12px; letter-spacing: 1px; }
+        .logo-area h1 { margin: 0; font-size: 9px; font-weight: 900; text-align: center; line-height: 1; text-transform: uppercase; }
+        .logo-area h1 span { color: var(--primary); display: block; font-size: 11px; letter-spacing: 0.5px; }
+        .logo-area h1 .sub { color: #8899a6; font-size: 7px; font-weight: 400; display: block; margin-top: 2px; }
         
         .btn-campanha { 
             background: var(--primary); color: #fff; text-decoration: none; font-size: 8px; 
             font-weight: 900; padding: 6px 8px; border-radius: 8px; text-align: center; 
-            flex: 1; max-width: 120px; line-height: 1.1; animation: pulse 2s infinite;
+            flex: 1; max-width: 110px; line-height: 1.1; animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(0.96); } 100% { transform: scale(1); } }
 
         /* MENU CATEGORIAS */
         .lojas-grid-menu { display: flex; overflow-x: auto; gap: 8px; padding: 15px; scrollbar-width: none; }
@@ -51,12 +52,12 @@
 
         /* CARD LOJA */
         .card-loja { flex: 0 0 105px; background: var(--card-bg); border-radius: 12px; padding: 12px 8px; text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; border-bottom: 3px solid var(--primary); transition: 0.2s; }
-        .card-loja:active { transform: scale(0.9); }
+        .card-loja:active { transform: scale(0.95); }
         .logo-container { width: 55px; height: 55px; border-radius: 50%; background: #fff; margin-bottom: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,0.1); }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
         .card-loja span { font-size: 9px; font-weight: 800; text-align: center; text-transform: uppercase; line-height: 1.1; }
 
-        /* NAV BOTTOM E TICKER */
+        /* RODAPÉ E TICKER */
         .nav-bottom { position: fixed; bottom: 30px; left: 0; width: 100%; background: var(--dark-bg); border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 50px; padding: 10px 0; z-index: 1001; }
         .nav-item { text-decoration: none; color: #8899a6; font-size: 11px; font-weight: 800; }
         .ticker-cidade { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: var(--primary); padding: 7px 0; overflow: hidden; white-space: nowrap; z-index: 1002; border-top: 1px solid var(--primary); font-size: 10px; font-weight: 900; }
@@ -71,54 +72,58 @@
             <div class="action-group"><button class="btn-header-small">📲</button><span class="btn-label">INSTALAR</span></div>
             <div class="action-group"><button class="btn-header-small">🔔</button><span class="btn-label">ALERTAS</span></div>
         </div>
-        <div class="logo-area"><h1>CENTRO COMERCIAL <span>DIGITAL</span></h1></div>
-        <a href="#" class="btn-campanha">AJUDE UM COMÉRCIO E CONCORRA A PRÊMIOS INCRÍVEIS</a>
+        <div class="logo-area">
+            <h1>
+                CENTRO COMERCIAL <span>DIGITAL</span>
+                <span class="sub">ATIBAIA E REGIÃO</span>
+            </h1>
+        </div>
+        <a href="premios.html" class="btn-campanha">AJUDE UM COMÉRCIO E CONCORRA A PRÊMIOS INCRÍVEIS</a>
     </header>
 
     <div class="lojas-grid-menu" id="menu-ancoras"></div>
 
-    <main id="conteudo-lojas">
-        </main>
+    <main id="conteudo-lojas"></main>
 
     <div class="nav-bottom">
         <a href="#" class="nav-item" style="color: var(--primary)">🏠 INÍCIO</a>
-        <a href="#" class="nav-item">📰 NOTÍCIAS</a>
+        <a href="noticias.html" class="nav-item">📰 NOTÍCIAS</a>
     </div>
 
     <div class="ticker-cidade">
-        <div class="ticker-track">🚀 BEM-VINDO AO CENTRO COMERCIAL DIGITAL • 🛍️ AS MELHORES LOJAS DA REGIÃO • 📢 ANUNCIE AQUI E APAREÇA PARA MILHARES DE CLIENTES •</div>
+        <div class="ticker-track">🚀 BEM-VINDO AO CENTRO COMERCIAL DIGITAL • 🛍️ APOIE O COMÉRCIO DE ATIBAIA E REGIÃO • 📢 ANUNCIE SUA LOJA AQUI •</div>
     </div>
 
     <script>
         // --- CONFIGURAÇÃO DAS LOJAS ---
-        // Adicionei o campo "destaque: true" para as lojas que devem aparecer no topo
+        // Para cada loja, mude o 'link' para a página que você criou para ela.
         const categorias = [
             { id: 'destaques', nome: '⭐ Lojas em Destaque', cor: 'var(--cat-destaque)', lojas: [
-                { nome: 'Pizzaria Premium', img: 'https://via.placeholder.com/100', link: '#', destaque: true },
-                { nome: 'Smart Tech', img: 'https://via.placeholder.com/100', link: '#', destaque: true },
-                { nome: 'Boutique Fashion', img: 'https://via.placeholder.com/100', link: '#', destaque: true }
+                { nome: 'Pizzaria Premium', img: 'https://via.placeholder.com/100', link: 'loja-pizzaria.html' },
+                { nome: 'Smart Tech', img: 'https://via.placeholder.com/100', link: 'loja-tech.html' },
+                { nome: 'Boutique Fashion', img: 'https://via.placeholder.com/100', link: 'loja-moda.html' }
             ]},
             { id: 'comida', nome: '🍔 Comida & Delivery', cor: 'var(--cat-food)', lojas: [
-                { nome: 'Burguer House', img: 'https://via.placeholder.com/100', link: '#' },
-                { nome: 'Sushi Atibaia', img: 'https://via.placeholder.com/100', link: '#' }
+                { nome: 'Burguer House', img: 'https://via.placeholder.com/100', link: 'burguer.html' },
+                { nome: 'Sushi Atibaia', img: 'https://via.placeholder.com/100', link: 'sushi.html' }
             ]},
             { id: 'moda', nome: '👗 Modas & Acessórios', cor: 'var(--cat-moda)', lojas: [
-                { nome: 'Loja Chic', img: 'https://via.placeholder.com/100', link: '#' }
+                { nome: 'Loja Chic', img: 'https://via.placeholder.com/100', link: 'chic.html' }
             ]},
             { id: 'tech', nome: '📱 Tecnologia', cor: 'var(--cat-tech)', lojas: [
-                { nome: 'Rei do Celular', img: 'https://via.placeholder.com/100', link: '#' }
+                { nome: 'Rei do Celular', img: 'https://via.placeholder.com/100', link: 'celulares.html' }
             ]},
             { id: 'servicos', nome: '⛽ Serviços', cor: 'var(--cat-serv)', lojas: [
-                { nome: 'Mecânica X', img: 'https://via.placeholder.com/100', link: '#' }
+                { nome: 'Mecânica X', img: 'https://via.placeholder.com/100', link: 'mecanica.html' }
             ]},
             { id: 'mercado', nome: '🛒 Mercado', cor: 'var(--cat-merc)', lojas: [
-                { nome: 'Mercadão Central', img: 'https://via.placeholder.com/100', link: '#' }
+                { nome: 'Mercadão Central', img: 'https://via.placeholder.com/100', link: 'mercado.html' }
             ]},
             { id: 'saude', nome: '💊 Saúde', cor: 'var(--cat-saud)', lojas: [
-                { nome: 'Farmácia Popular', img: 'https://via.placeholder.com/100', link: '#' }
+                { nome: 'Farmácia Popular', img: 'https://via.placeholder.com/100', link: 'farma.html' }
             ]},
             { id: 'outros', nome: '➕ Outros', cor: '#95a5a6', lojas: [
-                { nome: 'Loja Variedades', img: 'https://via.placeholder.com/100', link: '#' }
+                { nome: 'Loja Variedades', img: 'https://via.placeholder.com/100', link: 'variedades.html' }
             ]}
         ];
 
@@ -126,12 +131,10 @@
         const conteudoBox = document.getElementById('conteudo-lojas');
 
         categorias.forEach(cat => {
-            // Criar botões no menu (exceto para a seção de destaques que já fica no topo)
             if(cat.id !== 'destaques') {
                 menuBox.innerHTML += `<a href="#${cat.id}" class="btn-menu-cat">${cat.nome.split(' ')[0]} ${cat.id}</a>`;
             }
 
-            // Gerar HTML das lojas
             let lojasHTML = '';
             cat.lojas.forEach(loja => {
                 lojasHTML += `
@@ -141,7 +144,6 @@
                     </a>`;
             });
 
-            // Adicionar seção ao Main
             conteudoBox.innerHTML += `
                 <section class="section-container" id="${cat.id}">
                     <div class="section-header">
