@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso Restrito - Admin</title>
+    <title>Acesso Restrito - Admin Cloud</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+
     <style>
         body { font-family: 'Montserrat', sans-serif; background: #1a2634; color: white; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         #login-screen { text-align: center; background: #243447; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 350px; }
@@ -16,19 +20,21 @@
         button:active { transform: scale(0.98); }
         
         .post-item { background: #000; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-        .btn-excluir { background: #e74c3c; width: auto; padding: 8px 15px; font-size: 11px; }
+        .btn-excluir { background: #e74c3c; width: auto; padding: 8px 15px; font-size: 11px; color: white; border-radius: 5px; border: none; cursor: pointer; }
         .btn-logout { background: transparent; border: 1px solid #8899a6; color: #8899a6; margin-top: 20px; padding: 10px; }
+        .status-nuvem { font-size: 10px; color: #2ecc71; text-align: center; margin-bottom: 10px; text-transform: uppercase; font-weight: 900; }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <h1 style="font-size: 1.2rem; margin-bottom: 20px;">🔐 ACESSO RESTRITO</h1>
+        <h1 style="font-size: 1.2rem; margin-bottom: 20px;">🔐 ADMIN CLOUD</h1>
         <input type="password" id="senha-input" placeholder="Digite sua senha admin">
         <button onclick="verificarSenha()">ENTRAR NO PAINEL</button>
     </div>
 
     <div id="admin-content">
+        <div class="status-nuvem">● Conectado ao Firebase Realtime</div>
         <h1 style="text-align: center; font-size: 1.5rem;">PAINEL ADMINISTRADOR</h1>
         
         <div class="card-gestao">
@@ -38,7 +44,7 @@
             <input type="text" id="imagem" placeholder="Link da Imagem (Ex: https://...)">
             <input type="text" id="linkLoja" placeholder="Link de Destino (Ex: loja-pizzaria.html)">
             
-            <button onclick="salvarPost()">PUBLICA E NOTIFICAR 🚀</button>
+            <button id="btn-publicar" onclick="salvarPost()">PUBLICA NA NUVEM 🚀</button>
         </div>
 
         <div id="lista-posts"></div>
@@ -47,6 +53,21 @@
     </div>
 
     <script>
+        // --- CONFIGURAÇÃO DO FIREBASE ---
+        // SUBSTITUA OS DADOS ABAIXO PELOS SEUS DADOS DO PASSO 2 DO CONSOLE
+        const firebaseConfig = {
+  apiKey: "AIzaSyCa7WhXYB6FlN6UgOH_-tI4RUP9I5qKGg8",
+  authDomain: "centro-comercial-atibaia.firebaseapp.com",
+  projectId: "centro-comercial-atibaia",
+  storageBucket: "centro-comercial-atibaia.firebasestorage.app",
+  messagingSenderId: "1005793020514",
+  appId: "1:1005793020514:web:132ef885bdf0f815e4df3b"
+};
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
         const SENHA_MESTRA = "atibaia2026"; 
 
         function verificarSenha() {
@@ -62,59 +83,72 @@
         }
 
         function salvarPost() {
+            const btn = document.getElementById('btn-publicar');
             const titulo = document.getElementById('titulo').value;
             const texto = document.getElementById('texto').value;
             const imagem = document.getElementById('imagem').value;
-            const linkLoja = document.getElementById('linkLoja').value; // Captura o link
+            const linkLoja = document.getElementById('linkLoja').value;
 
-            if(!titulo || !texto) return alert("Preencha os campos obrigatórios!");
+            if(!titulo || !texto) return alert("Preencha título e descrição!");
 
-            const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
+            btn.disabled = true;
+            btn.innerText = "ENVIANDO...";
+
+            const novoPostId = Date.now();
             const novoPost = { 
-                id: Date.now(), 
-                titulo, 
-                texto, 
-                linkLoja: linkLoja || '#', // Guarda o link ou fica vazio
-                imagem: imagem || 'https://picsum.photos/seed/'+Date.now()+'/800/1200' 
+                id: novoPostId, 
+                titulo: titulo, 
+                texto: texto, 
+                linkLoja: linkLoja || '#',
+                imagem: imagem || 'https://picsum.photos/seed/'+novoPostId+'/800/1200' 
             };
-            
-            noticias.unshift(novoPost);
-            localStorage.setItem('noticias', JSON.stringify(noticias));
 
-            if (Notification.permission === 'granted') {
-                new Notification("Centro Comercial Digital", {
-                    body: `Nova oferta de ${titulo}!`,
-                    icon: 'https://picsum.photos/100'
-                });
-            }
-
-            alert("Publicado com sucesso!");
-            limparCampos();
-            carregarPainel();
+            // SALVANDO NO FIREBASE
+            database.ref('noticias/' + novoPostId).set(novoPost)
+            .then(() => {
+                alert("Sucesso! Sincronizado com todos os celulares. 🚀");
+                limparCampos();
+                btn.disabled = false;
+                btn.innerText = "PUBLICA NA NUVEM 🚀";
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Erro ao salvar na nuvem!");
+                btn.disabled = false;
+            });
         }
 
         function carregarPainel() {
             const lista = document.getElementById('lista-posts');
-            const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
             
-            lista.innerHTML = "<h2 style='font-size: 1rem; margin: 20px 0;'>Postagens Ativas:</h2>";
-            
-            noticias.forEach(n => {
-                lista.innerHTML += `
-                    <div class="post-item">
-                        <span><b>${n.titulo}</b></span>
-                        <button class="btn-excluir" onclick="apagarPost(${n.id})">APAGAR</button>
-                    </div>
-                `;
+            // O "on('value')" faz com que a lista atualize SOZINHA se algo mudar no banco
+            database.ref('noticias').on('value', (snapshot) => {
+                const noticias = snapshot.val();
+                lista.innerHTML = "<h2 style='font-size: 1rem; margin: 20px 0;'>Postagens Ativas na Nuvem:</h2>";
+                
+                if(!noticias) {
+                    lista.innerHTML += "<p style='color:#8899a6'>Nenhuma postagem ativa.</p>";
+                    return;
+                }
+
+                // Transformamos em array para inverter a ordem (mais recente no topo)
+                const arrayNoticias = Object.entries(noticias).reverse();
+
+                arrayNoticias.forEach(([key, n]) => {
+                    lista.innerHTML += `
+                        <div class="post-item">
+                            <span><b>${n.titulo}</b></span>
+                            <button class="btn-excluir" onclick="apagarPost('${key}')">APAGAR</button>
+                        </div>
+                    `;
+                });
             });
         }
 
         function apagarPost(id) {
-            if(confirm("Deseja mesmo apagar esta notícia?")) {
-                let noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
-                noticias = noticias.filter(n => n.id !== id);
-                localStorage.setItem('noticias', JSON.stringify(noticias));
-                carregarPainel();
+            if(confirm("Deseja apagar esta notícia da nuvem?")) {
+                database.ref('noticias/' + id).remove()
+                .then(() => alert("Removido!"));
             }
         }
 
@@ -122,7 +156,7 @@
             document.getElementById('titulo').value = '';
             document.getElementById('texto').value = '';
             document.getElementById('imagem').value = '';
-            document.getElementById('linkLoja').value = ''; // Limpa o novo campo
+            document.getElementById('linkLoja').value = '';
         }
 
         function logout() {
