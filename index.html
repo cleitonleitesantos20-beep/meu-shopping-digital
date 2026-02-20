@@ -39,79 +39,79 @@
         }
         .btn-campanha b { color: var(--primary); display: block; font-size: 10px; text-decoration: underline; margin-top: 2px; }
         
-        .lojas-grid-menu { display: flex; overflow-x: auto; gap: 10px; padding: 20px 15px; scrollbar-width: none; }
+        .lojas-grid-menu { display: flex; overflow-x: auto; gap: 10px; padding: 15px 15px 5px; scrollbar-width: none; }
         .lojas-grid-menu::-webkit-scrollbar { display: none; }
         .btn-menu-cat { flex: 0 0 auto; text-decoration: none; color: white; background: var(--card-bg); padding: 10px 15px; border-radius: 12px; font-size: 11px; font-weight: 900; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        /* SEÇÕES E CARROSSEL */
-        .section-container { margin-bottom: 40px; }
-        .section-header { padding: 0 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
-        .section-header h2 { font-size: 14px; font-weight: 900; text-transform: uppercase; margin: 0; white-space: nowrap; }
+        /* SEÇÕES E CARROSSEL - MAIS PRÓXIMOS */
+        .section-container { margin-bottom: 25px; } /* Reduzi de 40px para 25px */
+        .section-header { padding: 0 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+        .section-header h2 { font-size: 13px; font-weight: 900; text-transform: uppercase; margin: 0; white-space: nowrap; }
         .line { flex: 1; height: 2px; background: rgba(255,255,255,0.05); }
         
         .carousel-wrapper { 
             display: flex; 
             overflow-x: auto; 
-            gap: 15px; 
-            padding: 0 15px 20px; 
+            gap: 12px; /* Reduzi o espaço entre os cards */
+            padding: 0 15px 10px; 
             scrollbar-width: none; 
             scroll-snap-type: x mandatory; 
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
 
-        /* LOJA MAIS MAGRA E ALTA */
+        /* CARD AJUSTADO NA ALTURA */
         .card-loja { 
-            flex: 0 0 65vw; /* REDUZIDO de 85vw para 65vw (Ficou mais magro) */
+            flex: 0 0 60vw; /* Ficou levemente mais magro para mostrar mais o próximo card */
             background: var(--card-bg); 
-            border-radius: 20px; 
-            padding: 12px; 
+            border-radius: 18px; 
+            padding: 10px; 
             text-decoration: none; 
             color: white; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            border-bottom: 6px solid var(--primary); 
+            border-bottom: 4px solid var(--primary); 
             transition: 0.3s; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
             scroll-snap-align: center;
         }
         
         .logo-container { 
             width: 100%; 
-            height: 350px; /* MANTIDA a altura alta */
-            border-radius: 12px; 
+            height: 300px; /* ALTURA REDUZIDA para ver as lojas de baixo */
+            border-radius: 10px; 
             background: #fff; 
-            margin-bottom: 12px; 
+            margin-bottom: 10px; 
             overflow: hidden; 
         }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
-        .card-loja span { font-size: 14px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-loja span { font-size: 13px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 0.3px; }
 
         /* RODAPÉ INSTITUCIONAL */
         .footer-info {
-            padding: 40px 20px 60px;
+            padding: 30px 20px 50px;
             background: rgba(0,0,0,0.2);
             text-align: center;
-            margin-top: 50px;
+            margin-top: 30px;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
         .footer-text {
-            font-size: 11px;
+            font-size: 10px;
             color: #8899a6;
-            line-height: 1.6;
-            max-width: 80%;
-            margin: 0 auto 25px;
+            line-height: 1.5;
+            max-width: 85%;
+            margin: 0 auto 20px;
             font-weight: 400;
         }
         .footer-btns {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
         }
         .btn-footer {
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 8px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 900;
             text-transform: uppercase;
             text-decoration: none;
@@ -230,4 +230,3 @@
     </script>
 </body>
 </html>
-
