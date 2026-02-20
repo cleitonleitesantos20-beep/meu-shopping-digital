@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Centro Comercial - Reels & Notícias</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+
     <style>
         :root { --primary: #2ecc71; --text-light: #ecf0f1; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Montserrat', sans-serif; overflow: hidden; }
 
-        /* REELS CONTAINER */
         .reels-container {
             width: 100%; height: 100vh;
             scroll-snap-type: y mandatory;
@@ -27,7 +30,6 @@
 
         .content-media { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; position: absolute; top:0; left:0; }
 
-        /* GRADIENTE PARA LEITURA */
         .overlay-gradient {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
             background: linear-gradient(transparent, rgba(0,0,0,0.95));
@@ -75,10 +77,6 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* Efeito de clique visual */
-        .video-slide:active { opacity: 0.9; }
-        
-        /* Mensagem quando não há nada */
         .empty-state {
             height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; color: white; text-align: center; padding: 20px;
@@ -90,61 +88,71 @@
     <a href="index.html" class="btn-voltar">‹</a>
 
     <div class="reels-container" id="reels-display">
+        <div class="empty-state">
+            <p>Carregando novidades...</p>
         </div>
+    </div>
 
     <script>
-        /**
-         * FUNÇÃO PASSO A PASSO PARA CARREGAR AS NOTÍCIAS:
-         * 1. Puxa os dados do 'noticias' no localStorage.
-         * 2. Verifica se existem dados.
-         * 3. Mapeia cada notícia para o formato vertical (Reels).
-         */
+        // --- CONFIGURAÇÃO DO FIREBASE ---
+        // USE AS MESMAS CONFIGURAÇÕES QUE VOCÊ COLOCOU NO GERENCIAR.HTML
+        const firebaseConfig = {
+  apiKey: "AIzaSyCa7WhXYB6FlN6UgOH_-tI4RUP9I5qKGg8",
+  authDomain: "centro-comercial-atibaia.firebaseapp.com",
+  projectId: "centro-comercial-atibaia",
+  storageBucket: "centro-comercial-atibaia.firebasestorage.app",
+  messagingSenderId: "1005793020514",
+  appId: "1:1005793020514:web:132ef885bdf0f815e4df3b"
+};
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
         function carregarReels() {
             const container = document.getElementById('reels-display');
-            const dadosSalvos = localStorage.getItem('noticias');
-            const noticias = JSON.parse(dadosSalvos || '[]');
-            
-            if (noticias.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <span style="font-size: 50px; margin-bottom: 20px;">📭</span>
-                        <h2 style="font-weight: 900;">NADA POR AQUI</h2>
-                        <p style="color: #8899a6;">As promoções e novidades aparecerão neste formato vertical.</p>
-                        <br>
-                        <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 900;">VOLTAR AO INÍCIO</a>
-                    </div>`;
-                return;
-            }
 
-            // Inserir as notícias no container
-            container.innerHTML = noticias.map(n => `
-                <a href="${n.linkLoja || '#'}" class="video-slide">
-                    <img src="${n.imagem}" class="content-media" onerror="this.src='https://picsum.photos/seed/error/800/1200'">
-                    <div class="overlay-gradient"></div>
-                    
-                    <div class="overlay-info">
-                        <div class="loja-header">
-                            <img src="https://picsum.photos/seed/${n.titulo}/100" class="loja-logo">
-                            <span class="loja-nome">${n.titulo}</span>
+            // Escuta as notícias no banco de dados em tempo real
+            database.ref('noticias').on('value', (snapshot) => {
+                const noticiasObj = snapshot.val();
+                
+                if (!noticiasObj) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <span style="font-size: 50px; margin-bottom: 20px;">📭</span>
+                            <h2 style="font-weight: 900;">NADA POR AQUI</h2>
+                            <p style="color: #8899a6;">Aguarde as próximas promoções!</p>
+                            <br>
+                            <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 900;">VOLTAR</a>
+                        </div>`;
+                    return;
+                }
+
+                // Converte o objeto do Firebase em Array e inverte para o mais novo aparecer primeiro
+                const noticias = Object.values(noticiasObj).reverse();
+
+                container.innerHTML = noticias.map(n => `
+                    <a href="${n.linkLoja || '#'}" class="video-slide">
+                        <img src="${n.imagem}" class="content-media" onerror="this.src='https://picsum.photos/seed/error/800/1200'">
+                        <div class="overlay-gradient"></div>
+                        
+                        <div class="overlay-info">
+                            <div class="loja-header">
+                                <img src="https://picsum.photos/seed/${n.titulo}/100" class="loja-logo">
+                                <span class="loja-nome">${n.titulo}</span>
+                            </div>
+                            
+                            <p class="video-desc">${n.texto}</p>
+                            
+                            <div class="btn-call">Aproveitar Oferta ➔</div>
                         </div>
-                        
-                        <p class="video-desc">${n.texto}</p>
-                        
-                        <div class="btn-call">Aproveitar Oferta ➔</div>
-                    </div>
-                </a>
-            `).join('');
+                    </a>
+                `).join('');
+            });
         }
 
-        // Executar ao carregar a página
+        // Inicia a função
         window.onload = carregarReels;
-
-        // Tentar solicitar permissão de notificação se ainda não tiver
-        if ("Notification" in window && Notification.permission !== 'granted') {
-            document.body.addEventListener('click', () => {
-                Notification.requestPermission();
-            }, { once: true });
-        }
     </script>
 </body>
 </html>
