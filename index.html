@@ -14,9 +14,9 @@
             --cat-digital: #8e44ad; --cat-novas: #34495e;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--text-light); padding-bottom: 110px; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--text-light); padding-bottom: 120px; overflow-x: hidden; }
 
-        /* HEADER AMPLIADO */
+        /* HEADER */
         header { 
             padding: 12px 10px; background: rgba(26, 38, 52, 0.98); backdrop-filter: blur(10px);
             position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary);
@@ -27,13 +27,11 @@
         .btn-header-small { background: rgba(255,255,255,0.1); border: none; color: var(--primary); font-size: 1.2rem; width: 38px; height: 38px; border-radius: 10px; cursor: pointer; }
         .btn-label { font-size: 8px; font-weight: 900; color: var(--primary); margin-top: 3px; text-transform: uppercase; }
         
-        /* LOGO MAIOR */
         .logo-area { flex: 2; }
         .logo-area h1 { margin: 0; font-size: 12px; font-weight: 900; text-align: center; line-height: 1.1; text-transform: uppercase; letter-spacing: -0.5px; }
         .logo-area h1 span { color: var(--primary); display: block; font-size: 16px; letter-spacing: 1px; }
         .logo-area h1 .sub { color: #8899a6; font-size: 9px; font-weight: 700; display: block; margin-top: 3px; }
         
-        /* BOTÃO CAMPANHA REESTILIZADO */
         .btn-campanha { 
             background: #fff; color: #000; text-decoration: none; font-size: 8px; 
             font-weight: 900; padding: 6px; border-radius: 8px; text-align: center; 
@@ -41,48 +39,87 @@
         }
         .btn-campanha b { color: var(--primary); display: block; font-size: 10px; text-decoration: underline; margin-top: 2px; }
         
-        /* MENU CATEGORIAS */
         .lojas-grid-menu { display: flex; overflow-x: auto; gap: 10px; padding: 20px 15px; scrollbar-width: none; }
         .lojas-grid-menu::-webkit-scrollbar { display: none; }
         .btn-menu-cat { flex: 0 0 auto; text-decoration: none; color: white; background: var(--card-bg); padding: 10px 15px; border-radius: 12px; font-size: 11px; font-weight: 900; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        /* CARROSSEL E SEÇÕES */
-        .section-container { margin-bottom: 30px; }
+        /* SEÇÕES E CARROSSEL AMPLIADO */
+        .section-container { margin-bottom: 40px; }
         .section-header { padding: 0 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
         .section-header h2 { font-size: 14px; font-weight: 900; text-transform: uppercase; margin: 0; white-space: nowrap; }
         .line { flex: 1; height: 2px; background: rgba(255,255,255,0.05); }
-        .carousel-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px 15px; scrollbar-width: none; }
+        
+        /* Ajuste para o carrossel parecer "quase a tela inteira" */
+        .carousel-wrapper { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 20px; 
+            padding: 0 20px 20px; 
+            scrollbar-width: none; 
+            scroll-snap-type: x mandatory; /* Efeito de deslize magnético */
+        }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
 
-        /* --- ALTERAÇÃO AQUI: CARD RETANGULAR VERTICAL --- */
+        /* LOJA EM TAMANHO GRANDE */
         .card-loja { 
-            flex: 0 0 130px; /* Largura levemente reduzida para parecer mais alto */
+            flex: 0 0 85vw; /* Ocupa 85% da largura da tela */
             background: var(--card-bg); 
-            border-radius: 10px; 
-            padding: 8px; 
+            border-radius: 20px; 
+            padding: 15px; 
             text-decoration: none; 
             color: white; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            border-bottom: 4px solid var(--primary); 
+            border-bottom: 6px solid var(--primary); 
             transition: 0.3s; 
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
+            scroll-snap-align: center;
         }
-        .card-loja:active { transform: scale(0.95); }
         
         .logo-container { 
             width: 100%; 
-            height: 180px; /* ALTURA RETANGULAR PARA CIMA */
-            border-radius: 6px; 
+            height: 380px; /* Altura bem maior para cobrir a tela */
+            border-radius: 12px; 
             background: #fff; 
-            margin-bottom: 8px; 
+            margin-bottom: 15px; 
             overflow: hidden; 
-            border: 1px solid rgba(255,255,255,0.1); 
         }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .card-loja span { font-size: 10px; font-weight: 900; text-align: center; text-transform: uppercase; line-height: 1.2; min-height: 24px; display: flex; align-items: center; }
+        .card-loja span { font-size: 18px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* RODAPÉ INSTITUCIONAL (BEM EMBAIXO) */
+        .footer-info {
+            padding: 40px 20px 60px;
+            background: rgba(0,0,0,0.2);
+            text-align: center;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-text {
+            font-size: 11px;
+            color: #8899a6;
+            line-height: 1.6;
+            max-width: 80%;
+            margin: 0 auto 25px;
+            font-weight: 400;
+        }
+        .footer-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .btn-footer {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #8899a6;
+            background: rgba(255,255,255,0.05);
+        }
 
         /* NAV E TICKER */
         .nav-bottom { position: fixed; bottom: 30px; left: 0; width: 100%; background: #1a2634; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 60px; padding: 15px 0; z-index: 1001; }
@@ -115,6 +152,16 @@
 
     <main id="conteudo-lojas"></main>
 
+    <footer class="footer-info">
+        <p class="footer-text">
+            O Centro Comercial Digital Atibaia é uma vitrine tecnológica criada para conectar consumidores aos melhores comércios da nossa região, fomentando a economia local e facilitando o acesso a promoções exclusivas.
+        </p>
+        <div class="footer-btns">
+            <a href="perguntas.html" class="btn-footer">PERGUNTAS</a>
+            <a href="feedback.html" class="btn-footer">FEEDBACK</a>
+        </div>
+    </footer>
+
     <div class="nav-bottom">
         <a href="#" class="nav-item" style="color: var(--primary)">🏠 INÍCIO</a>
         <a href="noticias.html" class="nav-item">📰 NOTÍCIAS e PROMOÇÕES</a>
@@ -127,31 +174,31 @@
     <script>
         const categorias = [
             { id: 'destaques', nome: '⭐ Lojas em Destaque', cor: 'var(--cat-destaque)', lojas: [
-                { nome: 'Pizzaria Premium', img: 'https://picsum.photos/seed/pizza/300/500', link: 'loja-pizzaria.html' },
-                { nome: 'Smart Tech', img: 'https://picsum.photos/seed/tech/300/500', link: 'loja-tech.html' },
-                { nome: 'Boutique Fashion', img: 'https://picsum.photos/seed/moda/300/500', link: 'loja-moda.html' }
+                { nome: 'Pizzaria Premium', img: 'https://picsum.photos/seed/pizza/600/800', link: 'loja-pizzaria.html' },
+                { nome: 'Smart Tech', img: 'https://picsum.photos/seed/tech/600/800', link: 'loja-tech.html' },
+                { nome: 'Boutique Fashion', img: 'https://picsum.photos/seed/moda/600/800', link: 'loja-moda.html' }
             ]},
             { id: 'comida', nome: '🍔 Comida & Delivery', cor: 'var(--cat-food)', lojas: [
-                { nome: 'Burguer House', img: 'https://picsum.photos/seed/burguer/300/500', link: 'burguer.html' },
-                { nome: 'Sushi Atibaia', img: 'https://picsum.photos/seed/sushi/300/500', link: 'sushi.html' }
+                { nome: 'Burguer House', img: 'https://picsum.photos/seed/burguer/600/800', link: 'burguer.html' },
+                { nome: 'Sushi Atibaia', img: 'https://picsum.photos/seed/sushi/600/800', link: 'sushi.html' }
             ]},
             { id: 'moda', nome: '👗 Modas & Acessórios', cor: 'var(--cat-moda)', lojas: [
-                { nome: 'Loja Chic', img: 'https://picsum.photos/seed/vestido/300/500', link: 'chic.html' },
-                { nome: 'Calçados Atibaia', img: 'https://picsum.photos/seed/shoe/300/500', link: 'shoes.html' }
+                { nome: 'Loja Chic', img: 'https://picsum.photos/seed/vestido/600/800', link: 'chic.html' },
+                { nome: 'Calçados Atibaia', img: 'https://picsum.photos/seed/shoe/600/800', link: 'shoes.html' }
             ]},
             { id: 'tech', nome: '📱 Tecnologia', cor: 'var(--cat-tech)', lojas: [
-                { nome: 'Rei do Celular', img: 'https://picsum.photos/seed/phone/300/500', link: 'celulares.html' }
+                { nome: 'Rei do Celular', img: 'https://picsum.photos/seed/phone/600/800', link: 'celulares.html' }
             ]},
             { id: 'servicos', nome: '⛽ Serviços', cor: 'var(--cat-serv)', lojas: [
-                { nome: 'Posto Central', img: 'https://picsum.photos/seed/gas/300/500', link: 'posto.html' }
+                { nome: 'Posto Central', img: 'https://picsum.photos/seed/gas/600/800', link: 'posto.html' }
             ]},
             { id: 'digital', nome: '💻 Lojas Digitais', cor: 'var(--cat-digital)', lojas: [
-                { nome: 'Curso Design', img: 'https://picsum.photos/seed/code/300/500', link: 'digital1.html' },
-                { nome: 'Marketing Pro', img: 'https://picsum.photos/seed/seo/300/500', link: 'digital2.html' }
+                { nome: 'Curso Design', img: 'https://picsum.photos/seed/code/600/800', link: 'digital1.html' },
+                { nome: 'Marketing Pro', img: 'https://picsum.photos/seed/seo/600/800', link: 'digital2.html' }
             ]},
             { id: 'novas', nome: '🆕 Novas na C.C.D', cor: 'var(--cat-novas)', lojas: [
-                { nome: 'Café Novo', img: 'https://picsum.photos/seed/coffee/300/500', link: 'nova1.html' },
-                { nome: 'Pet Shop Life', img: 'https://picsum.photos/seed/dog/300/500', link: 'nova2.html' }
+                { nome: 'Café Novo', img: 'https://picsum.photos/seed/coffee/600/800', link: 'nova1.html' },
+                { nome: 'Pet Shop Life', img: 'https://picsum.photos/seed/dog/600/800', link: 'nova2.html' }
             ]}
         ];
 
@@ -184,4 +231,3 @@
     </script>
 </body>
 </html>
-
