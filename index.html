@@ -43,29 +43,28 @@
         .lojas-grid-menu::-webkit-scrollbar { display: none; }
         .btn-menu-cat { flex: 0 0 auto; text-decoration: none; color: white; background: var(--card-bg); padding: 10px 15px; border-radius: 12px; font-size: 11px; font-weight: 900; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        /* SEÇÕES E CARROSSEL AMPLIADO */
+        /* SEÇÕES E CARROSSEL */
         .section-container { margin-bottom: 40px; }
         .section-header { padding: 0 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
         .section-header h2 { font-size: 14px; font-weight: 900; text-transform: uppercase; margin: 0; white-space: nowrap; }
         .line { flex: 1; height: 2px; background: rgba(255,255,255,0.05); }
         
-        /* Ajuste para o carrossel parecer "quase a tela inteira" */
         .carousel-wrapper { 
             display: flex; 
             overflow-x: auto; 
-            gap: 20px; 
-            padding: 0 20px 20px; 
+            gap: 15px; 
+            padding: 0 15px 20px; 
             scrollbar-width: none; 
-            scroll-snap-type: x mandatory; /* Efeito de deslize magnético */
+            scroll-snap-type: x mandatory; 
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
 
-        /* LOJA EM TAMANHO GRANDE */
+        /* LOJA MAIS MAGRA E ALTA */
         .card-loja { 
-            flex: 0 0 65vw; /* Ocupa 85% da largura da tela */
+            flex: 0 0 65vw; /* REDUZIDO de 85vw para 65vw (Ficou mais magro) */
             background: var(--card-bg); 
             border-radius: 20px; 
-            padding: 15px; 
+            padding: 12px; 
             text-decoration: none; 
             color: white; 
             display: flex; 
@@ -79,16 +78,16 @@
         
         .logo-container { 
             width: 100%; 
-            height: 380px; /* Altura bem maior para cobrir a tela */
+            height: 380px; /* MANTIDA a altura alta */
             border-radius: 12px; 
             background: #fff; 
-            margin-bottom: 15px; 
+            margin-bottom: 12px; 
             overflow: hidden; 
         }
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
-        .card-loja span { font-size: 18px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+        .card-loja span { font-size: 14px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* RODAPÉ INSTITUCIONAL (BEM EMBAIXO) */
+        /* RODAPÉ INSTITUCIONAL */
         .footer-info {
             padding: 40px 20px 60px;
             background: rgba(0,0,0,0.2);
@@ -231,4 +230,3 @@
     </script>
 </body>
 </html>
-
