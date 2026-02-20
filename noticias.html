@@ -37,23 +37,32 @@
         }
 
         .overlay-info {
-            position: absolute; bottom: 60px; left: 20px; right: 20px;
-            color: white; z-index: 10;
+            position: absolute; 
+            bottom: 120px; /* Mais alto que o anterior */
+            left: 20px; 
+            right: 20px;
+            color: white; 
+            z-index: 10;
         }
 
         .loja-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-        .loja-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #fff; }
-        .loja-nome { font-weight: 900; font-size: 1.1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); color: white; }
+        
+        .loja-nome { 
+            font-weight: 900; 
+            font-size: 1.5rem; /* Texto maior */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
+            color: var(--primary); /* Destaque na cor para o título */
+        }
         
         .video-desc { 
-            font-size: 0.9rem; 
+            font-size: 1.1rem; /* Texto da descrição maior */
             line-height: 1.4; 
-            color: rgba(255,255,255,0.9); 
+            color: rgba(255,255,255,1); 
             font-weight: 400; 
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 4; /* Aumentado para 4 linhas */
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -62,10 +71,10 @@
             display: inline-block;
             background: var(--primary);
             color: #000;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 12px 25px; /* Botão um pouco maior para acompanhar o texto */
+            border-radius: 25px;
             font-weight: 900;
-            font-size: 11px;
+            font-size: 13px;
             text-transform: uppercase;
         }
 
@@ -95,7 +104,6 @@
 
     <script>
         // --- CONFIGURAÇÃO DO FIREBASE ---
-        // USE AS MESMAS CONFIGURAÇÕES QUE VOCÊ COLOCOU NO GERENCIAR.HTML
         const firebaseConfig = {
   apiKey: "AIzaSyCa7WhXYB6FlN6UgOH_-tI4RUP9I5qKGg8",
   authDomain: "centro-comercial-atibaia.firebaseapp.com",
@@ -105,14 +113,12 @@
   appId: "1:1005793020514:web:132ef885bdf0f815e4df3b"
 };
 
-        // Inicializa o Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
         function carregarReels() {
             const container = document.getElementById('reels-display');
 
-            // Escuta as notícias no banco de dados em tempo real
             database.ref('noticias').on('value', (snapshot) => {
                 const noticiasObj = snapshot.val();
                 
@@ -128,7 +134,6 @@
                     return;
                 }
 
-                // Converte o objeto do Firebase em Array e inverte para o mais novo aparecer primeiro
                 const noticias = Object.values(noticiasObj).reverse();
 
                 container.innerHTML = noticias.map(n => `
@@ -138,7 +143,6 @@
                         
                         <div class="overlay-info">
                             <div class="loja-header">
-                                <img src="https://picsum.photos/seed/${n.titulo}/100" class="loja-logo">
                                 <span class="loja-nome">${n.titulo}</span>
                             </div>
                             
@@ -151,7 +155,6 @@
             });
         }
 
-        // Inicia a função
         window.onload = carregarReels;
     </script>
 </body>
