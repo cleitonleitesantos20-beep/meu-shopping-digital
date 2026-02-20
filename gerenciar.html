@@ -36,6 +36,8 @@
             <input type="text" id="titulo" placeholder="Nome da Loja ou Título">
             <textarea id="texto" placeholder="Descrição da Promoção..." rows="3"></textarea>
             <input type="text" id="imagem" placeholder="Link da Imagem (Ex: https://...)">
+            <input type="text" id="linkLoja" placeholder="Link de Destino (Ex: loja-pizzaria.html)">
+            
             <button onclick="salvarPost()">PUBLICA E NOTIFICAR 🚀</button>
         </div>
 
@@ -45,7 +47,7 @@
     </div>
 
     <script>
-        const SENHA_MESTRA = "atibaia2026"; // Mude sua senha aqui!
+        const SENHA_MESTRA = "atibaia2026"; 
 
         function verificarSenha() {
             const senhaDigitada = document.getElementById('senha-input').value;
@@ -63,6 +65,7 @@
             const titulo = document.getElementById('titulo').value;
             const texto = document.getElementById('texto').value;
             const imagem = document.getElementById('imagem').value;
+            const linkLoja = document.getElementById('linkLoja').value; // Captura o link
 
             if(!titulo || !texto) return alert("Preencha os campos obrigatórios!");
 
@@ -71,13 +74,13 @@
                 id: Date.now(), 
                 titulo, 
                 texto, 
+                linkLoja: linkLoja || '#', // Guarda o link ou fica vazio
                 imagem: imagem || 'https://picsum.photos/seed/'+Date.now()+'/800/1200' 
             };
             
             noticias.unshift(novoPost);
             localStorage.setItem('noticias', JSON.stringify(noticias));
 
-            // Disparar Notificação Real
             if (Notification.permission === 'granted') {
                 new Notification("Centro Comercial Digital", {
                     body: `Nova oferta de ${titulo}!`,
@@ -119,6 +122,7 @@
             document.getElementById('titulo').value = '';
             document.getElementById('texto').value = '';
             document.getElementById('imagem').value = '';
+            document.getElementById('linkLoja').value = ''; // Limpa o novo campo
         }
 
         function logout() {
