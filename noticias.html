@@ -22,41 +22,67 @@
             width: 100%; height: 100vh;
             scroll-snap-align: start;
             position: relative; background: #000;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; /* Indica que é clicável */
-            text-decoration: none; /* Remove sublinhado do link */
-            display: block; /* Garante que o link ocupe o espaço todo */
+            display: block; text-decoration: none;
         }
 
         .content-media { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; position: absolute; top:0; left:0; }
 
         /* GRADIENTE PARA LEITURA */
         .overlay-gradient {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
             z-index: 5;
         }
 
         .overlay-info {
-            position: absolute; bottom: 100px; left: 20px; right: 20px;
+            position: absolute; bottom: 60px; left: 20px; right: 20px;
             color: white; z-index: 10;
         }
 
         .loja-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
         .loja-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #fff; }
-        .loja-nome { font-weight: 900; font-size: 1.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); color: white; }
+        .loja-nome { font-weight: 900; font-size: 1.1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); color: white; }
         
-        .video-desc { font-size: 0.95rem; line-height: 1.5; color: rgba(255,255,255,0.9); font-weight: 400; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        .video-desc { 
+            font-size: 0.9rem; 
+            line-height: 1.4; 
+            color: rgba(255,255,255,0.9); 
+            font-weight: 400; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .btn-call {
+            display: inline-block;
+            background: var(--primary);
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
 
         .btn-voltar {
-            position: absolute; top: 25px; left: 20px; z-index: 20;
-            background: rgba(0,0,0,0.5); width: 40px; height: 40px;
+            position: absolute; top: 25px; left: 20px; z-index: 100;
+            background: rgba(0,0,0,0.6); width: 40px; height: 40px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             color: white; text-decoration: none; font-size: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         /* Efeito de clique visual */
         .video-slide:active { opacity: 0.9; }
+        
+        /* Mensagem quando não há nada */
+        .empty-state {
+            height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; color: white; text-align: center; padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -67,40 +93,58 @@
         </div>
 
     <script>
+        /**
+         * FUNÇÃO PASSO A PASSO PARA CARREGAR AS NOTÍCIAS:
+         * 1. Puxa os dados do 'noticias' no localStorage.
+         * 2. Verifica se existem dados.
+         * 3. Mapeia cada notícia para o formato vertical (Reels).
+         */
         function carregarReels() {
             const container = document.getElementById('reels-display');
-            const noticias = JSON.parse(localStorage.getItem('noticias') || '[]');
+            const dadosSalvos = localStorage.getItem('noticias');
+            const noticias = JSON.parse(dadosSalvos || '[]');
             
             if (noticias.length === 0) {
-                container.innerHTML = `<div class="video-slide" style="display:flex; justify-content:center; align-items:center;">
-                    <p style="color:white; text-align:center;">Nenhuma promoção no momento.<br><br>
-                    <a href="index.html" style="color:var(--primary); text-decoration:none;">Voltar ao início</a></p>
-                </div>`;
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <span style="font-size: 50px; margin-bottom: 20px;">📭</span>
+                        <h2 style="font-weight: 900;">NADA POR AQUI</h2>
+                        <p style="color: #8899a6;">As promoções e novidades aparecerão neste formato vertical.</p>
+                        <br>
+                        <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 900;">VOLTAR AO INÍCIO</a>
+                    </div>`;
                 return;
             }
 
+            // Inserir as notícias no container
             container.innerHTML = noticias.map(n => `
                 <a href="${n.linkLoja || '#'}" class="video-slide">
-                    <img src="${n.imagem}" class="content-media">
+                    <img src="${n.imagem}" class="content-media" onerror="this.src='https://picsum.photos/seed/error/800/1200'">
                     <div class="overlay-gradient"></div>
+                    
                     <div class="overlay-info">
                         <div class="loja-header">
-                            <img src="https://picsum.photos/seed/${n.id}/50" class="loja-logo">
+                            <img src="https://picsum.photos/seed/${n.titulo}/100" class="loja-logo">
                             <span class="loja-nome">${n.titulo}</span>
                         </div>
+                        
                         <p class="video-desc">${n.texto}</p>
-                        <small style="color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 10px;">Toque para ver mais ➔</small>
+                        
+                        <div class="btn-call">Aproveitar Oferta ➔</div>
                     </div>
                 </a>
             `).join('');
         }
 
-        // Solicitar permissão para notificações (opcional, já está no gerenciar)
-        if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
-            Notification.requestPermission();
-        }
-
+        // Executar ao carregar a página
         window.onload = carregarReels;
+
+        // Tentar solicitar permissão de notificação se ainda não tiver
+        if ("Notification" in window && Notification.permission !== 'granted') {
+            document.body.addEventListener('click', () => {
+                Notification.requestPermission();
+            }, { once: true });
+        }
     </script>
 </body>
 </html>
